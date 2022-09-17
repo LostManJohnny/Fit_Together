@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "854731982843",
+    "project_id": "fittogether-db04e",
+    "storage_bucket": "fittogether-db04e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854731982843:android:b9f87d410c8cbb4271ed5e",
+        "android_client_info": {
+          "package_name": "com.example.fittogether"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854731982843-h5j2b7ojdnvdr37s2987qbjoaork0smu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fittogether",
+            "certificate_hash": "92812d3fddaedd5ba534b8872cbef7fe8dae46ae"
+          }
+        },
+        {
+          "client_id": "854731982843-mvh2tah55v4mnv47sjmgc7mes2o0uvol.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAI6a6imtbUSKKLVzu0nbpjcUZnoTHkzo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "854731982843-mvh2tah55v4mnv47sjmgc7mes2o0uvol.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
