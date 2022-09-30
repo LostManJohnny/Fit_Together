@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Docs/School/College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/activity_home_screen.xml" value="0.4" />
+        <entry key="..\:/Docs/School/College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/activity_login.xml" value="0.4" />
+        <entry key="..\:/Docs/School/College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/activity_signup.xml" value="0.4" />
         <entry key="..\:/OneDrive - Red River College/Year 3 2022/Mobile Application Development/FitTogether/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3225" />
         <entry key="..\:/OneDrive - Red River College/Year 3 2022/Mobile Application Development/FitTogether/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3225" />
+        <entry key="..\:/OneDrive - Red River College/Year 3 2022/Mobile Application Development/FitTogether/app/src/main/res/layout/activity_home_screen.xml" value="0.4" />
         <entry key="..\:/OneDrive - Red River College/Year 3 2022/Mobile Application Development/FitTogether/app/src/main/res/layout/activity_login.xml" value="0.4" />
         <entry key="..\:/OneDrive - Red River College/Year 3 2022/Mobile Application Development/FitTogether/app/src/main/res/layout/activity_signup.xml" value="0.3078125" />
         <entry key="..\:/Users/mrmat/OneDrive - Red River College/Year 3 2022/Mobile Application Development/FitTogether/app/src/main/res/layout/activity_login.xml" value="0.264" />
@@ -12,7 +16,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
