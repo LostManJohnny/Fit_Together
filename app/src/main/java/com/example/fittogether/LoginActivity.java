@@ -24,6 +24,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Map;
 
+/**
+ *
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private static final String PREFERENCES = "My_Preferences";
@@ -39,6 +42,9 @@ public class LoginActivity extends AppCompatActivity {
     TextView txt_Email, txt_Password;
     Button btn_Login, btn_Register;
 
+    /**
+     * Event Handler onStart
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -49,6 +55,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Event Handler onCreate
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,24 +90,25 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //region Event Handlers
-    /*
-    @View v : The view calling the action
-    Starts registration activity
+
+    /**
+     * Starts registration activity
+     * @param v : The View calling the action
      */
     public void btnRegister_onClick(View v){
         Intent intent = new Intent(v.getContext(), SignupActivity.class);
         startActivity(intent);
     }
 
-    /*
-    @View v : The view calling the action
-    1.  Retrieves the email and password from the text inputs
-    2.  Validates them such that they are
-        a) Not null
-        b) Not empty strings
-    3.  Alerts the user if there is an issue during sign
-    4.  If there are no issues, and authentication succeeds, signs the user in and starts the
-            home screen activity
+    /**
+     *     1.  Retrieves the email and password from the text inputs
+     *     2.  Validates them such that they are
+     *         a) Not null
+     *         b) Not empty strings
+     *     3.  Alerts the user if there is an issue during sign
+     *     4.  If there are no issues, and authentication succeeds, signs the user in and starts the
+     *             home screen activity
+     * @param v : The View calling the action
      */
     public void btnLogin_onClick(View v){
         String email, password;
@@ -131,6 +142,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //endregion
+
+    /**
+     * Process flow for creating a new account in Firebase
+     * @param email : The email of the account being created
+     * @param password : The plaintext password of the account being created
+     */
     private void createAccount(String email, String password){
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -152,6 +169,11 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * The signIn process flow with Firebase
+     * @param email : The email of the user attempting to sign in
+     * @param password : The plaintext password of the user attempting to sign in
+     */
     private void signIn(String email, String password){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -214,6 +236,10 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Updates the user to use data specific to the user
+     * @param user : User to based the UI upon
+     */
     private void updateUI(FirebaseUser user) {
         if(user != null){
             Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
@@ -225,6 +251,9 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Reloads the activity
+     */
     private void reload() {
         Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
         startActivity(intent);

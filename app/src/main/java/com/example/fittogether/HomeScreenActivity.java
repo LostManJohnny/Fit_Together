@@ -27,6 +27,10 @@ public class HomeScreenActivity extends AppCompatActivity {
     // Views
     TextView tv_Welcome;
 
+    /**
+     * Event Handler onCreate
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,15 +46,20 @@ public class HomeScreenActivity extends AppCompatActivity {
 
 
         if(currentUser != null){
-            updateUI();
+            updateUI(currentUser);
         }
         else{
             tv_Welcome.setText("Null User");
         }
     }
 
-    private void updateUI() {
-        String uid = currentUser.getUid();
+    /**
+     * Updates the UI based on a user
+     * @param user : User to base the UI upon
+     * TODO: Change to retrieve user information from SharedPreferences
+     */
+    private void updateUI(FirebaseUser user) {
+        String uid = user.getUid();
 
         DocumentReference docRef = store.collection("users").document(uid);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -76,22 +85,31 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Event Handler onStart
+     */
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         currentUser = mAuth.getCurrentUser();
-//        if(currentUser != null){
-////            reload();
-//        }
+        if(currentUser != null){
+            reload();
+        }
     }
 
+    /**
+     *
+     */
     private void reload() {
     }
 
-    //Prevents the user from returning back to the login screen after signing in by closing the app
-    //Same as if they pressed the home button
-    //TODO: Place a warning / request to press the back button again to close the app
+    /**
+     * Event Handler onBackPressed
+     * Prevents the user from returning back to the login screen after signing in by closing the app
+     * Same as if they pressed the home button
+     * TODO: Place a warning / request to press the back button again to close the app
+     */
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);

@@ -48,6 +48,10 @@ public class SignupActivity extends AppCompatActivity {
     String email;
     String password;
 
+    /**
+     * Event Handler onCreate
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,13 +74,15 @@ public class SignupActivity extends AppCompatActivity {
 
         btn_SignUp.setOnClickListener(new View.OnClickListener(){
             /**
+             * Event Handler onClick
              * Starts the registration process for a new user
-             * @param view
+             * @param view : View calling the event
              */
             @Override
             public void onClick(View view) {
                 //Retrieve all form data
                 String fname, lname;
+
                 fname = et_FirstName.getText().toString();
                 lname = et_LastName.getText().toString();
                 email = et_Email.getText().toString();
@@ -96,8 +102,9 @@ public class SignupActivity extends AppCompatActivity {
                         user.put("Last_Name", lname);
 
                         // Add new user to the collection
-                        store.collection("users")
-                                .add(user)
+                        store
+                            .collection("users")
+                            .add(user)
                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>(){
                                     @Override
                                     public void onSuccess(DocumentReference documentReference) {
@@ -150,7 +157,7 @@ public class SignupActivity extends AppCompatActivity {
 
     /**
      * Updates the UI based on the current user
-     * @param user User to apply to the UI
+     * @param user : User to apply to the UI
      */
     private void updateUI(FirebaseUser user) {
         if(user != null){
