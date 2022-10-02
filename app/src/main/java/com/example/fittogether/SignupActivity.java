@@ -44,13 +44,8 @@ public class SignupActivity extends AppCompatActivity {
     Button btn_SignUp;
     ProgressBar pb_Signup;
 
-    //Login Credentials
-    String email;
-    String password;
-
     /**
      * Event Handler onCreate
-     * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +62,6 @@ public class SignupActivity extends AppCompatActivity {
         et_Email = findViewById(R.id.et_Email);
         et_Password = findViewById(R.id.et_Password);
         btn_SignUp = findViewById(R.id.btn_SignUp);
-        pb_Signup = findViewById(R.id.pb_Signup);
 
         //Set Loading Wheel to GONE
         pb_Signup.setVisibility(View.GONE);
@@ -81,15 +75,17 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Retrieve all form data
-                String fname, lname;
+                String first_name, last_name, email, password;
+                Account_Type account_type;
 
-                fname = et_FirstName.getText().toString();
-                lname = et_LastName.getText().toString();
+                first_name = et_FirstName.getText().toString();
+                last_name = et_LastName.getText().toString();
                 email = et_Email.getText().toString();
                 password = et_Password.getText().toString();
+                account_type = Account_Type.CLIENT;
 
                 // Checks that all fields are valid
-                if(fname.equals("") || lname.equals("") || email.equals("") || password.equals("")){
+                if(first_name.equals("") || last_name.equals("") || email.equals("") || password.equals("")){
                     Toast.makeText(getApplicationContext(), "All fields must be filled out", Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -97,30 +93,46 @@ public class SignupActivity extends AppCompatActivity {
                     // .. on success, add the remaining user data to Firestore
                     if(createAccount(email, password)){
                         // Create a user map
-                        Map<String, Object> user = new HashMap<>();
-                        user.put("First_Name", fname);
-                        user.put("Last_Name", lname);
+                        User new_User = new User(first_name, last_name, email, account_type);
 
-                        // Add new user to the collection
-                        store
-                            .collection("users")
-                            .add(user)
-                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>(){
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener(){
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w(TAG, "Error adding document", e);
-                                    }
-                                });
+                        if(!addNewUser(new_User)){
+                            Toast.makeText(getApplicationContext(),"There was an error writing user data to firestore", Toast.LENGTH_SHORT);
+                        }
                     }
                 }
             }
         });
+    }
+
+    /**
+     * Adds the new user data to firestore
+     * @param new_user : The new user being added
+     * @return Whether the add was successful or not
+     */
+    private boolean addNewUser(User new_user) {
+        final Boolean[] status = {true};
+
+        String email = new_user.getEmail();
+
+        // Add new user to the collection
+        store.collection("users").document(email)
+                .set(new_user.toMap())
+                .addOnSuccessListener(new OnSuccessListener<Void>(){
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Successfully added document for email : " + email);
+                        status[0] = true;
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener(){
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                        status[0] = false;
+                    }
+                });
+
+        return status[0];
     }
 
     /**

@@ -16,6 +16,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
 
+import java.util.Map;
+
 public class HomeScreenActivity extends AppCompatActivity {
 
     private static final String TAG = HomeScreenActivity.class.getName();
@@ -39,11 +41,10 @@ public class HomeScreenActivity extends AppCompatActivity {
         // Initialize Firebase Connections
         mAuth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         // Retrieve Vies
         tv_Welcome = findViewById(R.id.tv_Welcome);
-
-
 
         if(currentUser != null){
             updateUI(currentUser);
@@ -59,30 +60,35 @@ public class HomeScreenActivity extends AppCompatActivity {
      * TODO: Change to retrieve user information from SharedPreferences
      */
     private void updateUI(FirebaseUser user) {
-        String uid = user.getUid();
+        String email = user.getEmail();
 
-        DocumentReference docRef = store.collection("users").document(uid);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+        DocumentReference docRef = store.collection("users").document(email);
 
-                        tv_Welcome.setText(document.getData().toString());
+        docRef.get()
+            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                /**
+                 * Event Handler onComplete
+                 * After the query is successful, the UI is updated with the values
+                 * @param task : The task being executed
+                 */
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                            String first_name = (String) document.get("First_Name");
+                            tv_Welcome.setText("Welcome " + first_name);
+                        } else {
+                            Log.d(TAG, "No such document");
+                            tv_Welcome.setText("No Such Document");
+                        }
                     } else {
-                        Log.d(TAG, "No such document");
-                        tv_Welcome.setText("No Such Document");
+                        Log.d(TAG, "get failed with ", task.getException());
+                        tv_Welcome.setText("Get Failed");
                     }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                    tv_Welcome.setText("Get Failed");
                 }
-            }
-        });
-
-
+            });
     }
 
     /**

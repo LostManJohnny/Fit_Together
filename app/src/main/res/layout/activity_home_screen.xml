@@ -4,46 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:guidelineUseRtl="false"
+    app:layout_wrapBehaviorInParent="horizontal_only"
     tools:context=".HomeScreenActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_CreateWorkout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="16dp"
-        android:text="Button"
+        android:background="#00FFFFFF"
+        android:text="Create a Workout"
+        android:textColor="#424141"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintEnd_toStartOf="@+id/btn_FindTrainer"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_FindTrainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
-        app:layout_constraintStart_toEndOf="@+id/button" />
+        android:background="#00FFFFFF"
+        android:text="Find a Trainer"
+        android:textColor="#424141"
+        android:textSize="10sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_CreateWorkout"
+        app:layout_constraintEnd_toStartOf="@+id/btn_Settings"
+        app:layout_constraintStart_toEndOf="@+id/btn_CreateWorkout" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button"
-        app:layout_constraintEnd_toStartOf="@+id/button4"
-        app:layout_constraintStart_toEndOf="@+id/button2" />
-
-    <Button
-        android:id="@+id/button4"
+        android:id="@+id/btn_Settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
-        android:text="Button"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button"
+        android:background="#00FFFFFF"
+        android:text="Settings"
+        android:textColor="#424141"
+        android:textSize="10sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_CreateWorkout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button3" />
+        app:layout_constraintStart_toEndOf="@+id/btn_FindTrainer" />
 
     <TextView
         android:id="@+id/tv_Welcome"
@@ -52,6 +54,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Welcome"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

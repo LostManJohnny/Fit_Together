@@ -3,6 +3,7 @@ package com.example.fittogether;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.internal.AccountType;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -30,9 +32,11 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
 
     private static final String PREFERENCES = "My_Preferences";
+    private static final String TAG = LoginActivity.class.toString();
+
+    // Initialize Firebase
     private FirebaseAuth mAuth;
     private FirebaseFirestore store;
-    private static final String TAG = LoginActivity.class.toString();
     private FirebaseUser currentUser;
 
     // Shared Preferences
@@ -49,15 +53,15 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //Check if user is signed in (non-null) and update UI accordingly
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
+
         if(currentUser != null){
-            reload();
+            updateUI(currentUser);
         }
     }
 
     /**
      * Event Handler onCreate
-     * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,9 @@ public class LoginActivity extends AppCompatActivity {
         // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
+
+        // Initialize Share Preferences
+        sharedPref = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
 
         // Event Listeners
         btn_Login.setOnClickListener(new View.OnClickListener(){
@@ -103,23 +110,23 @@ public class LoginActivity extends AppCompatActivity {
     /**
      *     1.  Retrieves the email and password from the text inputs
      *     2.  Validates them such that they are
-     *         a) Not null
-     *         b) Not empty strings
+     *              a) Not null
+     *              b) Not empty strings
      *     3.  Alerts the user if there is an issue during sign
      *     4.  If there are no issues, and authentication succeeds, signs the user in and starts the
      *             home screen activity
      * @param v : The View calling the action
      */
     public void btnLogin_onClick(View v){
+        // Instantiate variables
         String email, password;
+
+        // Retrieve variables
         email = txt_Email.getText().toString();
         password = txt_Password.getText().toString();
 
-        Log.i(TAG, "\nEmail: " + email +
-                "\nPassword: " + password +
-                "\nNull?: " + (password.equals("") || email.equals("")));
-
-        //Verify information is not ""
+        // Verify information is not blank
+        // ... if so, alert the user
         if(password.equals("") || email.equals("")){
             if(!password.equals("")){
                 Toast.makeText(getApplicationContext(), "Username cannot be blank", Toast.LENGTH_LONG).show();
@@ -131,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Username and Password cannot be blank", Toast.LENGTH_LONG).show();
             }
         }
-
+        // ... otherwise, attempt a sign in
         else {
             try {
                 signIn(email, password);
@@ -182,55 +189,56 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            String uid = user.getUid();
 
+                            // Update the current user
+                            currentUser = mAuth.getCurrentUser();
 
-                            DocumentReference docRef = store.collection("users").document(uid);
-                            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>(){
-                                /**
-                                 * Given the retrieval was a success, parse the data and store in SharedPreferences
-                                 * @param documentSnapshot
-                                 */
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    // If the document exists, parse the data and store in Shared Preferences
-                                    if(documentSnapshot.exists()){
-                                        Map<String, Object> data = documentSnapshot.getData();
+                            DocumentReference docRef = store.collection("users").document(email);
+                            docRef.get()
+                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>(){
+                                    /**
+                                     * Given the retrieval was a success, parse the data and store in SharedPreferences
+                                     * @param documentSnapshot
+                                     */
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        // If the document exists, parse the data and store in Shared Preferences
+                                        if(documentSnapshot.exists()){
+                                            Map<String, Object> data = documentSnapshot.getData();
 
-                                        String  firstName = null,
-                                                lastName = null,
-                                                email = null;
+                                            // If there is a data entry for the user, retrieve the information and store it in the sharedPreferences
+                                            if (data != null) {
+                                                String firstName, lastName, email, accountType;
 
-                                        // If there is a data entry for the user, retrieve the information and store it in the sharedPreferences
-                                        if (data != null) {
-                                            firstName = (String) data.get("First_Name");
-                                            lastName = (String) data.get("Last_Name");
-                                            email = (String) data.get("Email");
+                                                firstName = (String) data.get("First_Name");
+                                                lastName = (String) data.get("Last_Name");
+                                                email = (String) data.get("Email");
+                                                accountType = (String) data.get("Account_Type");
 
-                                            sharedPref.edit()
-                                                    .putString("FirstName", firstName)
-                                                    .putString("LastName", lastName)
-                                                    .putString("email", email)
-                                                    .apply();
-                                        } else {
-                                            Toast.makeText(LoginActivity.this, "Failed to retrieve user data from Firestore", Toast.LENGTH_SHORT).show();
+                                                sharedPref.edit()
+                                                        .putString("FirstName", firstName)
+                                                        .putString("LastName", lastName)
+                                                        .putString("Email", email)
+                                                        .putString("AccountType", accountType)
+                                                        .apply();
+                                            } else {
+                                                Toast.makeText(LoginActivity.this, "Failed to retrieve user data from Firestore", Toast.LENGTH_SHORT).show();
+                                            }
+
+                                            updateUI(currentUser);
+
                                         }
-
-                                        updateUI(user);
-
+                                        else{
+                                            updateUI(null);
+                                        }
                                     }
-                                    else{
-                                        updateUI(null);
-                                    }
-                                }
                             });
                         } else {
-                            // If sign in fails, display a message to the user.
+                            // SignIn Failed
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            // Display message to the user
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
                     }
                 });
@@ -241,13 +249,18 @@ public class LoginActivity extends AppCompatActivity {
      * @param user : User to based the UI upon
      */
     private void updateUI(FirebaseUser user) {
+        // Verify that the user is not null
         if(user != null){
+            // Create intent to Home Screen with the current user as an extra
             Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
+            intent.putExtra("Current_User", user);
             startActivity(intent);
+
+            // Completes this activity so backPress doesn't return the user to this screen
             finish();
         }
         else{
-            Toast.makeText(this, "An error occured when signing in, please try again", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "An error occurred when signing in, please try again", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -255,8 +268,7 @@ public class LoginActivity extends AppCompatActivity {
      * Reloads the activity
      */
     private void reload() {
-        Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
-        startActivity(intent);
+
     }
 }
 
