@@ -16,7 +16,7 @@
         android:layout_marginBottom="50dp"
         android:autofillHints="email"
         android:ems="10"
-        android:hint="Email"
+        android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/et_LoginPassword"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +30,7 @@
         android:layout_marginBottom="50dp"
         android:autofillHints="password"
         android:ems="10"
-        android:hint="Password"
+        android:hint="@string/password_hint"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/btn_Login"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,6 +40,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:text="@string/app_name"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-        android:text="Login"
+        android:text="@string/login_button"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toStartOf="@+id/btn_Register"
         app:layout_constraintStart_toStartOf="@+id/et_LoginPassword" />
@@ -60,7 +61,7 @@
         android:id="@+id/btn_Register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="@string/register_button"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn_Login"
         app:layout_constraintEnd_toEndOf="@+id/et_LoginPassword"
         app:layout_constraintStart_toEndOf="@+id/btn_Login" />
@@ -86,20 +87,22 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginBottom="25dp"
+        android:contentDescription="@string/google_sign_in_button"
         android:maxWidth="50dp"
         android:maxHeight="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.219"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/google_logo" />
+        app:srcCompat="@drawable/google_logo"
+        tools:ignore="RedundantDescriptionCheck" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:text="or sign in with"
+        android:text="@string/sign_in_partner_divider"
         app:layout_constraintBottom_toTopOf="@+id/btn_GoogleSignIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -118,10 +121,11 @@
         android:id="@+id/imageView2"
         android:layout_width="149dp"
         android:layout_height="147dp"
+        android:contentDescription="@string/fit_together_logo"
         app:layout_constraintBottom_toTopOf="@+id/et_LoginEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:srcCompat="@drawable/app_logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

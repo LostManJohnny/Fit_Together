@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Fit Together</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button">Login</string>
+    <string name="register_button">Register</string>
+    <string name="sign_in_partner_divider">or sign in with</string>
+    <string name="fit_together_logo">Fit Together Logo</string>
+    <string name="google_sign_in_button">Google sign in button</string>
 </resources>
