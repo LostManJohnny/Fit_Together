@@ -3,8 +3,7 @@ package com.example.fittogether;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
-import android.content.Context;
+import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,12 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.Executor;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -35,6 +30,7 @@ public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "";
     private FirebaseAuth mAuth;
     private FirebaseFirestore store;
+    private FirebaseUser currentUser;
 
     //Main thread handler
     Handler mainHandler = new Handler();
@@ -42,7 +38,8 @@ public class SignupActivity extends AppCompatActivity {
     // Views
     EditText et_FirstName, et_LastName, et_Email, et_Password;
     Button btn_SignUp;
-    ProgressBar pb_Signup;
+    RadioGroup rdg_AccountTypes;
+    RadioButton rdo_AccountType;
 
     /**
      * Event Handler onCreate
@@ -62,9 +59,7 @@ public class SignupActivity extends AppCompatActivity {
         et_Email = findViewById(R.id.et_Email);
         et_Password = findViewById(R.id.et_Password);
         btn_SignUp = findViewById(R.id.btn_SignUp);
-
-        //Set Loading Wheel to GONE
-        pb_Signup.setVisibility(View.GONE);
+        rdg_AccountTypes = findViewById(R.id.rdo_AccountType);
 
         btn_SignUp.setOnClickListener(new View.OnClickListener(){
             /**
@@ -76,19 +71,29 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Retrieve all form data
                 String first_name, last_name, email, password;
+                Integer accountTypeID;
                 Account_Type account_type;
 
                 first_name = et_FirstName.getText().toString();
                 last_name = et_LastName.getText().toString();
                 email = et_Email.getText().toString();
                 password = et_Password.getText().toString();
-                account_type = Account_Type.CLIENT;
+                accountTypeID = rdg_AccountTypes.getCheckedRadioButtonId();
 
                 // Checks that all fields are valid
-                if(first_name.equals("") || last_name.equals("") || email.equals("") || password.equals("")){
+                if(first_name.equals("") || last_name.equals("") || email.equals("") || password.equals("") || accountTypeID == -1){
                     Toast.makeText(getApplicationContext(), "All fields must be filled out", Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    // Get the account type of the user
+                    rdo_AccountType = (RadioButton) findViewById(accountTypeID);
+
+                    if(rdo_AccountType == findViewById(R.id.rdo_Client)){
+                        account_type = Account_Type.CLIENT;
+                    } else {
+                        account_type = Account_Type.TRAINER;
+                    }
+
                     // Create the new users account
                     // .. on success, add the remaining user data to Firestore
                     if(createAccount(email, password)){
@@ -150,8 +155,9 @@ public class SignupActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            Toast.makeText(SignupActivity.this, "Signup Successful : Signing in...", Toast.LENGTH_SHORT);
+                            currentUser = mAuth.getCurrentUser();
+                            updateUI(currentUser);
                             status[0] = true;
                         } else {
                             // If sign in fails, display a message to the user.
@@ -175,8 +181,9 @@ public class SignupActivity extends AppCompatActivity {
         if(user != null){
             Intent i = new Intent(this, HomeScreenActivity.class)
                     .putExtra("current_User", user);
+            startActivity(i);
         } else{
-
+            Toast.makeText(SignupActivity.this, "User is null", Toast.LENGTH_SHORT);
         }
     }
 }

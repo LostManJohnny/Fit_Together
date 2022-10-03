@@ -57,7 +57,6 @@ public class HomeScreenActivity extends AppCompatActivity {
     /**
      * Updates the UI based on a user
      * @param user : User to base the UI upon
-     * TODO: Change to retrieve user information from SharedPreferences
      */
     private void updateUI(FirebaseUser user) {
         String email = user.getEmail();

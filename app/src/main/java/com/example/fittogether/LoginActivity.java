@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,16 +30,12 @@ import java.util.Map;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String PREFERENCES = "My_Preferences";
     private static final String TAG = LoginActivity.class.toString();
 
     // Initialize Firebase
     private FirebaseAuth mAuth;
     private FirebaseFirestore store;
     private FirebaseUser currentUser;
-
-    // Shared Preferences
-    SharedPreferences sharedPref;
 
     //Views
     TextView txt_Email, txt_Password;
@@ -56,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
 
         if(currentUser != null){
+            Toast.makeText(LoginActivity.this, "Logging in as ... " + currentUser.getEmail(), Toast.LENGTH_SHORT);
+            Log.d(TAG, "Logging in as " + currentUser.getEmail());
             updateUI(currentUser);
         }
     }
@@ -77,9 +74,6 @@ public class LoginActivity extends AppCompatActivity {
         // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
-
-        // Initialize Share Preferences
-        sharedPref = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
 
         // Event Listeners
         btn_Login.setOnClickListener(new View.OnClickListener(){
@@ -193,52 +187,16 @@ public class LoginActivity extends AppCompatActivity {
                             // Update the current user
                             currentUser = mAuth.getCurrentUser();
 
-                            DocumentReference docRef = store.collection("users").document(email);
-                            docRef.get()
-                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>(){
-                                    /**
-                                     * Given the retrieval was a success, parse the data and store in SharedPreferences
-                                     * @param documentSnapshot
-                                     */
-                                    @Override
-                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                        // If the document exists, parse the data and store in Shared Preferences
-                                        if(documentSnapshot.exists()){
-                                            Map<String, Object> data = documentSnapshot.getData();
+                            updateUI(currentUser);
 
-                                            // If there is a data entry for the user, retrieve the information and store it in the sharedPreferences
-                                            if (data != null) {
-                                                String firstName, lastName, email, accountType;
-
-                                                firstName = (String) data.get("First_Name");
-                                                lastName = (String) data.get("Last_Name");
-                                                email = (String) data.get("Email");
-                                                accountType = (String) data.get("Account_Type");
-
-                                                sharedPref.edit()
-                                                        .putString("FirstName", firstName)
-                                                        .putString("LastName", lastName)
-                                                        .putString("Email", email)
-                                                        .putString("AccountType", accountType)
-                                                        .apply();
-                                            } else {
-                                                Toast.makeText(LoginActivity.this, "Failed to retrieve user data from Firestore", Toast.LENGTH_SHORT).show();
-                                            }
-
-                                            updateUI(currentUser);
-
-                                        }
-                                        else{
-                                            updateUI(null);
-                                        }
-                                    }
-                            });
                         } else {
                             // SignIn Failed
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             // Display message to the user
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+
+                            updateUI(null);
                         }
                     }
                 });
