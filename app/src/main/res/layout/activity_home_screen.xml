@@ -26,26 +26,14 @@
         android:id="@+id/btn_FindTrainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
         android:background="#00FFFFFF"
         android:text="Find a Trainer"
         android:textColor="#424141"
         android:textSize="10sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn_CreateWorkout"
-        app:layout_constraintEnd_toStartOf="@+id/btn_Settings"
-        app:layout_constraintStart_toEndOf="@+id/btn_CreateWorkout" />
-
-    <Button
-        android:id="@+id/btn_Settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:background="#00FFFFFF"
-        android:text="Settings"
-        android:textColor="#424141"
-        android:textSize="10sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btn_CreateWorkout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_FindTrainer" />
+        app:layout_constraintStart_toEndOf="@+id/btn_CreateWorkout" />
 
     <TextView
         android:id="@+id/tv_Welcome"
@@ -58,15 +46,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/btn_Profile"
-        android:layout_width="50dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:contextClickable="false"
-        android:scaleType="fitStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:background="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>

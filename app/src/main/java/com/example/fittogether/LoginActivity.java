@@ -42,22 +42,6 @@ public class LoginActivity extends AppCompatActivity {
     Button btn_Login, btn_Register;
 
     /**
-     * Event Handler onStart
-     */
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //Check if user is signed in (non-null) and update UI accordingly
-        currentUser = mAuth.getCurrentUser();
-
-        if(currentUser != null){
-            Toast.makeText(LoginActivity.this, "Logging in as ... " + currentUser.getEmail(), Toast.LENGTH_SHORT);
-            Log.d(TAG, "Logging in as " + currentUser.getEmail());
-            updateUI(currentUser);
-        }
-    }
-
-    /**
      * Event Handler onCreate
      */
     @Override
@@ -88,6 +72,22 @@ public class LoginActivity extends AppCompatActivity {
                 btnRegister_onClick(v);
             }
         });
+    }
+
+    /**
+     * Event Handler onStart
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //Check if user is signed in (non-null) and update UI accordingly
+        currentUser = mAuth.getCurrentUser();
+
+        if(currentUser != null){
+            Toast.makeText(LoginActivity.this, "Logging in as ... " + currentUser.getEmail(), Toast.LENGTH_SHORT);
+            Log.d(TAG, "Logging in as " + currentUser.getEmail());
+            updateUI(currentUser);
+        }
     }
 
     //region Event Handlers

@@ -27,10 +27,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class SignupActivity extends AppCompatActivity {
 
     //Auth variables
-    private static final String TAG = "";
+    private static final String TAG = "SignupActivity.java";
     private FirebaseAuth mAuth;
-    private FirebaseFirestore store;
     private FirebaseUser currentUser;
+
+    //Database
+    private FirebaseFirestore store;
 
     //Main thread handler
     Handler mainHandler = new Handler();
@@ -69,73 +71,86 @@ public class SignupActivity extends AppCompatActivity {
              */
             @Override
             public void onClick(View view) {
-                //Retrieve all form data
-                String first_name, last_name, email, password;
-                Integer accountTypeID;
-                Account_Type account_type;
-
-                first_name = et_FirstName.getText().toString();
-                last_name = et_LastName.getText().toString();
-                email = et_Email.getText().toString();
-                password = et_Password.getText().toString();
-                accountTypeID = rdg_AccountTypes.getCheckedRadioButtonId();
-
-                // Checks that all fields are valid
-                if(first_name.equals("") || last_name.equals("") || email.equals("") || password.equals("") || accountTypeID == -1){
-                    Toast.makeText(getApplicationContext(), "All fields must be filled out", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    // Get the account type of the user
-                    rdo_AccountType = (RadioButton) findViewById(accountTypeID);
-
-                    if(rdo_AccountType == findViewById(R.id.rdo_Client)){
-                        account_type = Account_Type.CLIENT;
-                    } else {
-                        account_type = Account_Type.TRAINER;
-                    }
-
-                    // Create the new users account
-                    // .. on success, add the remaining user data to Firestore
-                    if(createAccount(email, password)){
-                        // Create a user map
-                        User new_User = new User(first_name, last_name, email, account_type);
-
-                        if(!addNewUser(new_User)){
-                            Toast.makeText(getApplicationContext(),"There was an error writing user data to firestore", Toast.LENGTH_SHORT);
-                        }
-                    }
-                }
+                signUp();
             }
         });
     }
 
+    private void signUp(){
+        //Retrieve all form data
+        String first_name, last_name, email, password;
+        int accountTypeID;
+        Account_Type account_type;
+
+        first_name = et_FirstName.getText().toString();
+        last_name = et_LastName.getText().toString();
+        email = et_Email.getText().toString();
+        password = et_Password.getText().toString();
+        accountTypeID = rdg_AccountTypes.getCheckedRadioButtonId();
+
+        // If a field is invalid
+        if(first_name.equals("") || last_name.equals("") || email.equals("") || password.equals("") || accountTypeID == -1){
+            Toast.makeText(getApplicationContext(), "All fields must be filled out", Toast.LENGTH_SHORT).show();
+        }
+        // If all fields are valid
+        else{
+            // Get the account type of the user
+            rdo_AccountType = (RadioButton) findViewById(accountTypeID);
+
+            if(rdo_AccountType == findViewById(R.id.rdo_Client)){
+                account_type = Account_Type.CLIENT;
+            } else {
+                account_type = Account_Type.TRAINER;
+            }
+
+            // Create the new users account
+            // .. on success, add the remaining user data to Firestore
+            if(createAccount(email, password)){
+                if(currentUser == null)
+                    currentUser = mAuth.getCurrentUser();
+
+                // Create a user map
+                User new_user = new User(first_name, last_name, email, account_type);
+
+                // Adds user data to Firestore
+                if(!addNewUser(new_user)){
+                    Toast.makeText(getApplicationContext(),"There was an error writing user data to Firestore", Toast.LENGTH_SHORT).show();
+                    updateUI(currentUser);
+                }
+            }
+        }
+    }
+
     /**
-     * Adds the new user data to firestore
+     * Adds the new user data to Firestore
      * @param new_user : The new user being added
      * @return Whether the add was successful or not
      */
     private boolean addNewUser(User new_user) {
         final Boolean[] status = {true};
-
-        String email = new_user.getEmail();
+        String user_primary_key = new_user.getEmail();
 
         // Add new user to the collection
-        store.collection("users").document(email)
+        store.collection("users")
+                .document(user_primary_key)
                 .set(new_user.toMap())
-                .addOnSuccessListener(new OnSuccessListener<Void>(){
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "Successfully added document for email : " + email);
+                        Log.d(TAG, "Successfully added document for user");
                         status[0] = true;
                     }
                 })
-                .addOnFailureListener(new OnFailureListener(){
+                .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error writing document", e);
                         status[0] = false;
                     }
                 });
+
+
+        Toast.makeText(getApplicationContext(), "Finished adding data to Firestore", Toast.LENGTH_SHORT).show();
 
         return status[0];
     }
@@ -148,6 +163,7 @@ public class SignupActivity extends AppCompatActivity {
      */
     private boolean createAccount(String email, String password){
         final Boolean[] status = {true};
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -155,20 +171,21 @@ public class SignupActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            Toast.makeText(SignupActivity.this, "Signup Successful : Signing in...", Toast.LENGTH_SHORT);
+                            Toast.makeText(SignupActivity.this, "Signing in...", Toast.LENGTH_SHORT).show();
                             currentUser = mAuth.getCurrentUser();
-                            updateUI(currentUser);
                             status[0] = true;
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignupActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            Toast
+                                .makeText(SignupActivity.this, "Authentication failed.", Toast.LENGTH_SHORT)
+                                .show();
                             status[0] = false;
                         }
                     }
                 });
+
+        currentUser = mAuth.getCurrentUser();
 
         return status[0];
     }
@@ -179,11 +196,11 @@ public class SignupActivity extends AppCompatActivity {
      */
     private void updateUI(FirebaseUser user) {
         if(user != null){
-            Intent i = new Intent(this, HomeScreenActivity.class)
-                    .putExtra("current_User", user);
+            Intent i = new Intent(this, HomeScreenActivity.class);
             startActivity(i);
+            finish();
         } else{
-            Toast.makeText(SignupActivity.this, "User is null", Toast.LENGTH_SHORT);
+            Toast.makeText(SignupActivity.this, "User is null", Toast.LENGTH_SHORT).show();
         }
     }
 }

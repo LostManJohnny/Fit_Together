@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_marginBaseline="20dp"
+    tools:context=".Profile">
+
+    <Button
+        android:id="@+id/btn_Profile_Update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="Update"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_Profile_Cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_Profile_Cancel" />
+
+    <Button
+        android:id="@+id/btn_Profile_Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Cancel"
+        app:layout_constraintBottom_toTopOf="@+id/btn_Profile_DeleteAccount"
+        app:layout_constraintEnd_toStartOf="@+id/btn_Profile_Update"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/et_Profile_FirstName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:ems="10"
+        android:hint="First Name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_Profile_LastName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView4" />
+
+    <EditText
+        android:id="@+id/et_Profile_LastName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:ems="10"
+        android:hint="Last Name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_Profile_Email"
+        app:layout_constraintEnd_toEndOf="@+id/et_Profile_FirstName"
+        app:layout_constraintStart_toStartOf="@+id/et_Profile_FirstName" />
+
+    <EditText
+        android:id="@+id/et_Profile_Email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="125dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_Profile_ChangePassword"
+        app:layout_constraintEnd_toEndOf="@+id/et_Profile_LastName"
+        app:layout_constraintStart_toStartOf="@+id/et_Profile_LastName" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="44dp"
+        android:text="Profile"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_Profile_ChangePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Change Password"
+        app:layout_constraintBottom_toTopOf="@+id/btn_Profile_Cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_Profile_Error_FirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/error"
+        app:layout_constraintStart_toStartOf="@+id/et_Profile_FirstName"
+        app:layout_constraintTop_toBottomOf="@+id/et_Profile_FirstName" />
+
+    <TextView
+        android:id="@+id/tv_Profile_Error_LastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/error"
+        app:layout_constraintStart_toStartOf="@+id/et_Profile_LastName"
+        app:layout_constraintTop_toBottomOf="@+id/et_Profile_LastName" />
+
+    <TextView
+        android:id="@+id/tv_Profile_Error_Email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/error"
+        app:layout_constraintStart_toStartOf="@+id/et_Profile_Email"
+        app:layout_constraintTop_toBottomOf="@+id/et_Profile_Email" />
+
+    <Button
+        android:id="@+id/btn_Profile_DeleteAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/btn_warning_background"
+        android:text="Delete Account"
+        android:textColor="@color/btn_warning_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
