@@ -3,8 +3,6 @@ package com.example.fittogether;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.accounts.Account;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -15,6 +13,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.fittogether.DataModels.User;
+import com.example.fittogether.Enums.AccountType;
+import com.example.fittogether.Helpers.Activity;
+import com.example.fittogether.Helpers.Authentication;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -80,7 +82,7 @@ public class SignupActivity extends AppCompatActivity {
         //Retrieve all form data
         String first_name, last_name, email, password;
         int accountTypeID;
-        Account_Type account_type;
+        AccountType account_type;
 
         first_name = et_FirstName.getText().toString();
         last_name = et_LastName.getText().toString();
@@ -95,12 +97,12 @@ public class SignupActivity extends AppCompatActivity {
         // If all fields are valid
         else{
             // Get the account type of the user
-            rdo_AccountType = (RadioButton) findViewById(accountTypeID);
+            rdo_AccountType = findViewById(accountTypeID);
 
             if(rdo_AccountType == findViewById(R.id.rdo_Client)){
-                account_type = Account_Type.CLIENT;
+                account_type = AccountType.CLIENT;
             } else {
-                account_type = Account_Type.TRAINER;
+                account_type = AccountType.TRAINER;
             }
 
             // Create the new users account
@@ -134,19 +136,13 @@ public class SignupActivity extends AppCompatActivity {
         store.collection("users")
                 .document(user_primary_key)
                 .set(new_user.toMap())
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "Successfully added document for user");
-                        status[0] = true;
-                    }
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "Successfully added document for user");
+                    status[0] = true;
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error writing document", e);
-                        status[0] = false;
-                    }
+                .addOnFailureListener(e -> {
+                    Log.w(TAG, "Error writing document", e);
+                    status[0] = false;
                 });
 
 
@@ -165,23 +161,20 @@ public class SignupActivity extends AppCompatActivity {
         final Boolean[] status = {true};
 
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            Toast.makeText(SignupActivity.this, "Signing in...", Toast.LENGTH_SHORT).show();
-                            currentUser = mAuth.getCurrentUser();
-                            status[0] = true;
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "createUserWithEmail:success");
+                        Toast.makeText(SignupActivity.this, "Signing in...", Toast.LENGTH_SHORT).show();
+                        currentUser = mAuth.getCurrentUser();
+                        status[0] = true;
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                        Toast
                                 .makeText(SignupActivity.this, "Authentication failed.", Toast.LENGTH_SHORT)
                                 .show();
-                            status[0] = false;
-                        }
+                        status[0] = false;
                     }
                 });
 
@@ -192,15 +185,13 @@ public class SignupActivity extends AppCompatActivity {
 
     /**
      * Updates the UI based on the current user
-     * @param user : User to apply to the UI
+     * @param user : Authentication to apply to the UI
      */
     private void updateUI(FirebaseUser user) {
         if(user != null){
-            Intent i = new Intent(this, HomeScreenActivity.class);
-            startActivity(i);
-            finish();
+            Activity.goToHome(SignupActivity.this, true);
         } else{
-            Toast.makeText(SignupActivity.this, "User is null", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignupActivity.this, "Authentication is null", Toast.LENGTH_SHORT).show();
         }
     }
 }

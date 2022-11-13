@@ -2,10 +2,8 @@ package com.example.fittogether;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,6 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.fittogether.Exceptions.InvalidEmailException;
+import com.example.fittogether.Exceptions.NullCurrentUserException;
+import com.example.fittogether.Helpers.Activity;
+import com.example.fittogether.Helpers.Authentication;
 import com.example.fittogether.databinding.ActivityProfileBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,6 +48,9 @@ public class Profile extends AppCompatActivity {
     String og_firstName = "";
     String og_lastName = "";
 
+    /**
+     * Event handler onCreate for Profile activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,68 +67,46 @@ public class Profile extends AppCompatActivity {
 
         // Get Profile Data
         Task<DocumentSnapshot> task = setProfileData();
-
-        // Initialize variables
-        while(!task.isComplete()){
-
-        }
-
-        if(task.isComplete()){
-            DocumentSnapshot profileData = task.getResult();
-            og_firstName = (String) profileData.get("First_Name");
-            og_lastName = (String) profileData.get("Last_Name");
-            og_email = (String) profileData.get("Email");
-        }
-
         update = false;
 
-        String et_emailText = mainBinding.etProfileEmail.getText().toString();
-        String et_fnameText = mainBinding.etProfileFirstName.getText().toString();
-        String et_lnameText = mainBinding.etProfileLastName.getText().toString();
+        // Ensure task is not null...
+        if(task != null) {
+            task.addOnCompleteListener(task1 -> {
+                DocumentSnapshot profileData = task1.getResult();
+                og_firstName = (String) profileData.get("First_Name");
+                og_lastName = (String) profileData.get("Last_Name");
+                og_email = (String) profileData.get("Email");
 
-//        if(et_emailText != null){
-//            og_email = et_emailText.toString();
-//        }
-//
-//        if(et_fnameText!= null){
-//            og_firstName = et_fnameText.toString();
-//        }
-//
-//        if(et_lnameText != null){
-//            og_lastName = et_lnameText.toString();
-//        }
+                bind_event_listeners();
 
-        Log.i(TAG, "og_email : " + og_email);
-        Log.i(TAG, "og_Fname : " + og_firstName);
-        Log.i(TAG, "og_Lnaem : " + og_lastName);
-        Log.i(TAG, "og_Update? : " + update.toString());
+                Log.i("PROVIDER ID", currentUser.getProviderData().toString());
+            });
+        }
+        else{
+            Toast.makeText(this, "Error getting profile data", Toast.LENGTH_SHORT).show();
+        }
 
-        mainBinding.btnProfileUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(update){
-                    updateProfile();
-                }
-                else{
-                    Toast
+    }
+
+    /**
+     * Binds all event listeners for the activity
+     */
+    private void bind_event_listeners(){
+        mainBinding.btnProfileUpdate.setOnClickListener(view -> {
+            if (update) {
+                updateProfile();
+            } else {
+                Toast
                         .makeText(getApplicationContext(), "No changes have been made.", Toast.LENGTH_LONG)
                         .show();
-                }
             }
         });
-        mainBinding.btnProfileCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToHome();
-            }
-        });
-        mainBinding.btnProfileChangePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToChangePassword();
-            }
-        });
-        mainBinding.etProfileEmail.addTextChangedListener(new TextWatcher(){
+
+        mainBinding.btnProfileCancel.setOnClickListener(view -> Activity.goToHome(Profile.this, true));
+
+        mainBinding.btnProfileChangePassword.setOnClickListener(view -> Activity.goToChangePassword(Profile.this, true));
+
+        mainBinding.etProfileEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int before, int count) {
             }
@@ -138,7 +121,8 @@ public class Profile extends AppCompatActivity {
                 textChanged();
             }
         });
-        mainBinding.etProfileFirstName.addTextChangedListener(new TextWatcher(){
+
+        mainBinding.etProfileFirstName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int before, int count) {
             }
@@ -153,7 +137,8 @@ public class Profile extends AppCompatActivity {
                 textChanged();
             }
         });
-        mainBinding.etProfileLastName.addTextChangedListener(new TextWatcher(){
+
+        mainBinding.etProfileLastName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int before, int count) {
             }
@@ -168,14 +153,11 @@ public class Profile extends AppCompatActivity {
                 textChanged();
             }
         });
+
         mainBinding.btnProfileUpdate.setEnabled(update);
-        mainBinding.btnProfileDeleteAccount.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View view) {
-                    deleteAccount();
-                }
-            });
-        Log.i(TAG, "og_update?2 : " + update);
+
+        mainBinding.btnProfileDeleteAccount.setOnClickListener(view -> Authentication.deleteAccount(Profile.this));
+
     }
 
     @Override
@@ -185,28 +167,45 @@ public class Profile extends AppCompatActivity {
 
     // region Event Handlers
     private void updateProfile() {
-        String primary_key = currentUser.getEmail();
+        try {
+            if(currentUser == null){
+                throw new NullCurrentUserException();
+            }
+            String primary_key = currentUser.getEmail();
+            if(primary_key == null){
+                throw new InvalidEmailException();
+            }
+            Map<String, Object> data = new HashMap<>();
+            data.put("First_Name", mainBinding.etProfileFirstName.getText().toString());
+            data.put("Last_Name", mainBinding.etProfileLastName.getText().toString());
+            data.put("Email", mainBinding.etProfileEmail.getText().toString());
 
-        Map<String, Object> data = new HashMap<String, Object>();
-        data.put("First_Name", mainBinding.etProfileFirstName.getText().toString());
-        data.put("Last_Name", mainBinding.etProfileLastName.getText().toString());
-        data.put("Email", mainBinding.etProfileEmail.getText().toString());
+            store
+                    .collection("users")
+                    .document(primary_key)
+                    .update(data)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "Update was successful", Toast.LENGTH_SHORT).show();
 
-        store
-            .collection("users")
-            .document(primary_key)
-            .update(data)
-            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
-                        Toast.makeText(getApplicationContext(), "Update was successful", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(), "Update was not successful", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+                            og_firstName = mainBinding.etProfileFirstName.getText().toString();
+                            og_lastName = mainBinding.etProfileLastName.getText().toString();
+                            og_email = mainBinding.etProfileEmail.getText().toString();
+
+                            update = false;
+
+                            mainBinding.btnProfileUpdate.setEnabled(false);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Update was not successful", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+            } catch(NullCurrentUserException e){
+              Toast.makeText(getApplicationContext(), "Error updating profile.", Toast.LENGTH_SHORT).show();
+              Log.d(TAG + ":updateProfile()", "Error updating profile - Null current user", e);
+            } catch (InvalidEmailException e) {
+              Toast.makeText(getApplicationContext(), "Error retrieving email", Toast.LENGTH_SHORT).show();
+              Log.d(TAG + ":updateProfile()", "Error updating profile - Email was invalid", e);
+            }
     }
 
     private void textChanged(){
@@ -215,15 +214,6 @@ public class Profile extends AppCompatActivity {
         update = update || !og_lastName.equals(mainBinding.etProfileLastName.getText().toString());
 
         mainBinding.btnProfileUpdate.setEnabled(update);
-    }
-
-    private void goToChangePassword() {
-
-    }
-
-    private void goToHome(){
-        Intent intent = new Intent(Profile.this, HomeScreenActivity.class);
-        startActivity(intent);
     }
     // endregion
     
@@ -251,13 +241,12 @@ public class Profile extends AppCompatActivity {
                             if (documentSnapshot.exists()) {
                                 Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
 
-                                String og_fname = (String)documentSnapshot.get("First_Name");
-                                String og_lname = (String)documentSnapshot.get("Last_Name");
-                                String og_email = (String)documentSnapshot.get("Email");
-
-                                mainBinding.etProfileFirstName.setText(og_fname);
-                                mainBinding.etProfileLastName.setText(og_lname);
-                                mainBinding.etProfileEmail.setText(og_email);
+                                mainBinding.etProfileFirstName.setText(
+                                        (String)documentSnapshot.get("First_Name"));
+                                mainBinding.etProfileLastName.setText(
+                                        (String)documentSnapshot.get("Last_Name"));
+                                mainBinding.etProfileEmail.setText(
+                                        (String)documentSnapshot.get("Email"));
 
                             } else {
                                 Log.d(TAG, "No such document");
@@ -265,6 +254,10 @@ public class Profile extends AppCompatActivity {
                         }
                     })
                     .addOnFailureListener(new OnFailureListener(){
+                        /**
+                         * Event Handler onComplete
+                         * If the query is unsuccessful, a warning toast is displayed
+                         */
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast
@@ -280,20 +273,5 @@ public class Profile extends AppCompatActivity {
         }
 
         return null;
-    }
-
-    private void deleteAccount() {
-        String email = currentUser.getEmail();
-        store.collection("users").document(email).delete();
-        currentUser.delete()
-                .addOnCompleteListener(new OnCompleteListener<Void>(){
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(getApplicationContext(),"User has been deleted", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Profile.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
     }
 }

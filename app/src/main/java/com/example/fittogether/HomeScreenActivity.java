@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,6 +12,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fittogether.Helpers.Activity;
+import com.example.fittogether.Helpers.Authentication;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,9 +21,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Source;
-
-import java.util.Map;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
@@ -55,7 +53,7 @@ public class HomeScreenActivity extends AppCompatActivity {
             updateUI(currentUser);
         }
         else{
-            Toast.makeText(getApplicationContext(), "User error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Authentication error", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -68,9 +66,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         currentUser = mAuth.getCurrentUser();
         if(currentUser == null){
-            Intent intent = new Intent(HomeScreenActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+            Activity.goToLogin(HomeScreenActivity.this, true);
         }
     }
 
@@ -92,7 +88,7 @@ public class HomeScreenActivity extends AppCompatActivity {
             showProfile();
         }
         else if (itemId == R.id.mni_Logout) {
-            logout();
+            Authentication.Logout(HomeScreenActivity.this);
         }
         else if (itemId == R.id.mni_Settings) {
             showSettings();
@@ -114,14 +110,13 @@ public class HomeScreenActivity extends AppCompatActivity {
      * Changes from the homescreen activity to the profile activity
      */
     private void showProfile() {
-        Intent intent = new Intent(HomeScreenActivity.this, Profile.class);
-        startActivity(intent);
+        Activity.goToProfile(HomeScreenActivity.this, false);
     }
     //endregion
 
     /**
      * Updates the UI based on a user
-     * @param user : User to base the UI upon
+     * @param user : Authentication to base the UI upon
      */
     private void updateUI(FirebaseUser user) {
         String user_primary_key = user.getEmail();
@@ -140,6 +135,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                          *
                          * @param task : The task being executed
                          */
+                        @SuppressLint("SetTextI18n")
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()) {
@@ -174,13 +170,5 @@ public class HomeScreenActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
-    }
-
-    public void logout(){
-        mAuth.signOut();
-        Intent intent = new Intent(HomeScreenActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-
     }
 }

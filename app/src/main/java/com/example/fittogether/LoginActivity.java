@@ -1,35 +1,39 @@
 package com.example.fittogether;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.internal.AccountType;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.fittogether.Enums.RequestCode;
+import com.example.fittogether.Helpers.Activity;
+import com.example.fittogether.Helpers.Authentication;
+import com.example.fittogether.databinding.ActivityLoginBinding;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.Map;
 
 /**
  *
  */
 public class LoginActivity extends AppCompatActivity {
 
+    // Logging
     private static final String TAG = LoginActivity.class.toString();
 
     // Initialize Firebase
@@ -37,41 +41,43 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseFirestore store;
     private FirebaseUser currentUser;
 
-    //Views
-    TextView txt_Email, txt_Password;
-    Button btn_Login, btn_Register;
+    // Google Auth
+    private GoogleSignInOptions gso;
+    private GoogleSignInClient gsc;
 
+    // Databinding
+    ActivityLoginBinding binding;
+
+    // region Activity Event Handlers
     /**
      * Event Handler onCreate
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
-        // Initialized Views
-        txt_Email = findViewById(R.id.et_LoginEmail);
-        txt_Password = findViewById(R.id.et_LoginPassword);
-        btn_Login = findViewById(R.id.btn_Login);
-        btn_Register = findViewById(R.id.btn_Register);
+        // Databinding
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
 
+        // Initialize Google Auth
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail().requestProfile().build();
+        gsc = GoogleSignIn.getClient(this, gso);
+
         // Event Listeners
-        btn_Login.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                btnLogin_onClick(v);
-            }
-        });
-        btn_Register.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                btnRegister_onClick(v);
-            }
-        });
+        binding.btnLogin.setOnClickListener(this::btnLogin_onClick);
+
+        binding.btnRegister.setOnClickListener(this::btnRegister_onClick);
+
+        binding.btnGoogleSignIn.setOnClickListener(v -> Authentication.signIn_Google(LoginActivity.this, gsc));
+
+
     }
 
     /**
@@ -84,21 +90,52 @@ public class LoginActivity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
 
         if(currentUser != null){
-            Toast.makeText(LoginActivity.this, "Logging in as ... " + currentUser.getEmail(), Toast.LENGTH_SHORT);
+            Toast.makeText(LoginActivity.this, "Logging in as ... " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Logging in as " + currentUser.getEmail());
             updateUI(currentUser);
         }
     }
 
-    //region Event Handlers
+    /**
+     * Event handler for activity results
+     * @param requestCode : Code for the requesting activity / action
+     * @param resultCode : Result code from activity / action
+     * @param data : Data returned from activity / action
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Google Sign In activity result
+        if (requestCode == RequestCode.GOOGLE_SIGN_IN.ordinal()) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount signInAccount = task.getResult(ApiException.class);
+                // Connect Google account to Firebase user account
+                AuthCredential authCredential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
+                mAuth.signInWithCredential(authCredential).addOnCompleteListener(task1 -> {
+                    Toast.makeText(getApplicationContext(), "Logged in with google", Toast.LENGTH_LONG).show();
+                    currentUser = mAuth.getCurrentUser();
+                    updateUI(currentUser);
+                });
+            } catch (ApiException e) {
+                Toast.makeText(this, "Sign In Failed: failed code = " + e.getStatusCode(), Toast.LENGTH_LONG).show();
+            }
+
+        } else {
+            throw new IllegalStateException("Unexpected value: " + requestCode);
+        }
+    }
+    // endregion
+
+    //region View Event Handlers
 
     /**
      * Starts registration activity
      * @param v : The View calling the action
      */
     public void btnRegister_onClick(View v){
-        Intent intent = new Intent(v.getContext(), SignupActivity.class);
-        startActivity(intent);
+        Activity.goToRegister(LoginActivity.this, true);
     }
 
     /**
@@ -116,8 +153,8 @@ public class LoginActivity extends AppCompatActivity {
         String email, password;
 
         // Retrieve variables
-        email = txt_Email.getText().toString();
-        password = txt_Password.getText().toString();
+        email = binding.etLoginEmail.getText().toString();
+        password = binding.etLoginPassword.getText().toString();
 
         // Verify information is not blank
         // ... if so, alert the user
@@ -135,7 +172,27 @@ public class LoginActivity extends AppCompatActivity {
         // ... otherwise, attempt a sign in
         else {
             try {
-                signIn(email, password);
+                Authentication.signIn(email, password)
+                        .addOnCompleteListener(this, task -> {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "signInWithEmail:success");
+
+                                // Update the current user
+                                currentUser = mAuth.getCurrentUser();
+
+                                updateUI(currentUser);
+
+                            } else {
+                                // SignIn Failed
+                                Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                // Display message to the user
+                                Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+
+                                updateUI(null);
+                            }
+                        });
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -144,78 +201,20 @@ public class LoginActivity extends AppCompatActivity {
 
     //endregion
 
-    /**
-     * Process flow for creating a new account in Firebase
-     * @param email : The email of the account being created
-     * @param password : The plaintext password of the account being created
-     */
-    private void createAccount(String email, String password){
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-                    }
-                });
-    }
+    // region Authentication
 
-    /**
-     * The signIn process flow with Firebase
-     * @param email : The email of the user attempting to sign in
-     * @param password : The plaintext password of the user attempting to sign in
-     */
-    private void signIn(String email, String password){
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
 
-                            // Update the current user
-                            currentUser = mAuth.getCurrentUser();
+    // endregion
 
-                            updateUI(currentUser);
-
-                        } else {
-                            // SignIn Failed
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            // Display message to the user
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-
-                            updateUI(null);
-                        }
-                    }
-                });
-    }
-
+    // region Helpers
     /**
      * Updates the user to use data specific to the user
-     * @param user : User to based the UI upon
+     * @param user : Authentication to based the UI upon
      */
     private void updateUI(FirebaseUser user) {
         // Verify that the user is not null
         if(user != null){
-            // Create intent to Home Screen with the current user as an extra
-            Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
-            intent.putExtra("Current_User", user);
-            startActivity(intent);
-
-            // Completes this activity so backPress doesn't return the user to this screen
-            finish();
+            goMainActivity();
         }
         else{
             Toast.makeText(this, "An error occurred when signing in, please try again", Toast.LENGTH_LONG).show();
@@ -223,24 +222,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Reloads the activity
+     * Sends the user to the main activity
      */
-    private void reload() {
+    private void goMainActivity() {
+        // Create intent to Home Screen with the current user as an extra
+        Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
+        startActivity(intent);
 
+        // Completes this activity so backPress doesn't return the user to this screen
+        finish();
     }
-}
 
-/*
-CoordinatorLayout - cdl
-ContraintLayout - csl
-AppBarLayout - abl
-Button - btn
-EditText - et
-TextView - tv
-ProgressBar - pb
-Checkbox - chk
-Radiobutton - rb
-ToggleButton - tb
-Spinner - spn
-Menu - mnu
- */
+    //endregion
+}
