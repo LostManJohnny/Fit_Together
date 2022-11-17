@@ -1,6 +1,5 @@
 package com.example.fittogether;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -13,15 +12,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.fittogether.DataModels.User;
-import com.example.fittogether.Enums.AccountType;
-import com.example.fittogether.Helpers.Activity;
-import com.example.fittogether.Helpers.Authentication;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.example.fittogether.Models.Class.User;
+import com.example.fittogether.Api.Validation.UserValidation;
+import com.example.fittogether.Models.Enums.AccountType;
+import com.example.fittogether.Api.Exceptions.IllegalAccountTypeException;
+import com.example.fittogether.Api.Activity;
+import com.example.fittogether.databinding.ActivitySignupBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,6 +31,9 @@ public class SignupActivity extends AppCompatActivity {
 
     //Database
     private FirebaseFirestore store;
+
+    // Binding
+    ActivitySignupBinding binding;
 
     //Main thread handler
     Handler mainHandler = new Handler();
@@ -51,23 +50,17 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+
+        // Binding
+        binding = ActivitySignupBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // Initialize Firebase Auth and FireStore
         mAuth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
 
-        //Initialize views
-        et_FirstName = findViewById(R.id.et_FirstName);
-        et_LastName = findViewById(R.id.et_LastName);
-        et_Email = findViewById(R.id.et_Email);
-        et_Password = findViewById(R.id.et_Password);
-        btn_SignUp = findViewById(R.id.btn_SignUp);
-        rdg_AccountTypes = findViewById(R.id.rdo_AccountType);
-
-        btn_SignUp.setOnClickListener(new View.OnClickListener(){
+        binding.btnSignUp.setOnClickListener(new View.OnClickListener(){
             /**
-             * Event Handler onClick
              * Starts the registration process for a new user
              * @param view : View calling the event
              */
@@ -81,44 +74,43 @@ public class SignupActivity extends AppCompatActivity {
     private void signUp(){
         //Retrieve all form data
         String first_name, last_name, email, password;
-        int accountTypeID;
-        AccountType account_type;
+        AccountType account_type = null;
 
-        first_name = et_FirstName.getText().toString();
-        last_name = et_LastName.getText().toString();
-        email = et_Email.getText().toString();
-        password = et_Password.getText().toString();
-        accountTypeID = rdg_AccountTypes.getCheckedRadioButtonId();
+        first_name = binding.etFirstName.getText().toString();
+        last_name = binding.etLastName.getText().toString();
+        email = binding.etEmail.getText().toString();
+        password = binding.etPassword.getText().toString();
 
-        // If a field is invalid
-        if(first_name.equals("") || last_name.equals("") || email.equals("") || password.equals("") || accountTypeID == -1){
-            Toast.makeText(getApplicationContext(), "All fields must be filled out", Toast.LENGTH_SHORT).show();
-        }
+        // Validate all fields
+        boolean valid = UserValidation.validateFirstName(binding.etFirstName) &&
+                        UserValidation.validateLastName(binding.etLastName) &&
+                        UserValidation.validateEmail(binding.etEmail) &&
+                        UserValidation.validatePassword(binding.etPassword);
+
         // If all fields are valid
-        else{
-            // Get the account type of the user
-            rdo_AccountType = findViewById(accountTypeID);
+        if(valid){
+            try {
+                // Get the account type of the user
 
-            if(rdo_AccountType == findViewById(R.id.rdo_Client)){
-                account_type = AccountType.CLIENT;
-            } else {
-                account_type = AccountType.TRAINER;
-            }
-
-            // Create the new users account
-            // .. on success, add the remaining user data to Firestore
-            if(createAccount(email, password)){
-                if(currentUser == null)
-                    currentUser = mAuth.getCurrentUser();
+                if (binding.rdoAccountType.getCheckedRadioButtonId() ==
+                        binding.rdoClient.getId()) {
+                    account_type = AccountType.CLIENT;
+                } else if (binding.rdoAccountType.getCheckedRadioButtonId() ==
+                        binding.rdoTrainer.getId()) {
+                    account_type = AccountType.TRAINER;
+                } else {
+                    throw new IllegalAccountTypeException("Unknown account type (" + account_type + ")");
+                }
 
                 // Create a user map
                 User new_user = new User(first_name, last_name, email, account_type);
 
-                // Adds user data to Firestore
-                if(!addNewUser(new_user)){
-                    Toast.makeText(getApplicationContext(),"There was an error writing user data to Firestore", Toast.LENGTH_SHORT).show();
-                    updateUI(currentUser);
-                }
+                // Create the new users account
+                // .. on success, add the remaining user data to Firestore
+                createAccount(email, password, new_user);
+            }
+            catch(IllegalAccountTypeException e){
+                Log.d(TAG + "signUp:IllegalAccountTypeException", "Unknown account type " + "(" + account_type + ")");
             }
         }
     }
@@ -155,11 +147,8 @@ public class SignupActivity extends AppCompatActivity {
      * Process flow for creating a new user in Firestore Authentication
      * @param email : Email of the new user
      * @param password : Password of the new user
-     * @return Whether the creation of the new user was successful or not
      */
-    private boolean createAccount(String email, String password){
-        final Boolean[] status = {true};
-
+    private void createAccount(String email, String password, User user){
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
@@ -167,20 +156,22 @@ public class SignupActivity extends AppCompatActivity {
                         Log.d(TAG, "createUserWithEmail:success");
                         Toast.makeText(SignupActivity.this, "Signing in...", Toast.LENGTH_SHORT).show();
                         currentUser = mAuth.getCurrentUser();
-                        status[0] = true;
+
+                        // Adds user data to Firestore
+                        if (!addNewUser(user)) {
+                            Toast.makeText(getApplicationContext(), "There was an error writing user data to Firestore", Toast.LENGTH_SHORT).show();
+                            updateUI(currentUser);
+                        }
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                        Toast
-                                .makeText(SignupActivity.this, "Authentication failed.", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                                        SignupActivity.this,
+                                        "Authentication failed.",
+                                        Toast.LENGTH_SHORT)
                                 .show();
-                        status[0] = false;
                     }
                 });
-
-        currentUser = mAuth.getCurrentUser();
-
-        return status[0];
     }
 
     /**

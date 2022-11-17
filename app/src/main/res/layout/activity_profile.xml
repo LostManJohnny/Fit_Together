@@ -33,8 +33,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
+        android:autofillHints="First Name"
         android:ems="10"
         android:hint="First Name"
+        android:importantForAutofill="yes"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/et_Profile_LastName"
@@ -46,8 +48,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:autofillHints="Last Name"
         android:ems="10"
         android:hint="Last Name"
+        android:importantForAutofill="yes"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/et_Profile_Email"
@@ -59,9 +63,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="125dp"
+        android:autofillHints="Email"
         android:ems="10"
         android:hint="Email"
-        android:inputType="textPersonName"
+        android:importantForAutofill="yes"
+        android:inputType="textEmailAddress"
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_Profile_ChangePassword"
         app:layout_constraintEnd_toEndOf="@+id/et_Profile_LastName"
@@ -94,30 +100,6 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_Profile_Cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_Profile_Error_FirstName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/error"
-        app:layout_constraintStart_toStartOf="@+id/et_Profile_FirstName"
-        app:layout_constraintTop_toBottomOf="@+id/et_Profile_FirstName" />
-
-    <TextView
-        android:id="@+id/tv_Profile_Error_LastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/error"
-        app:layout_constraintStart_toStartOf="@+id/et_Profile_LastName"
-        app:layout_constraintTop_toBottomOf="@+id/et_Profile_LastName" />
-
-    <TextView
-        android:id="@+id/tv_Profile_Error_Email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/error"
-        app:layout_constraintStart_toStartOf="@+id/et_Profile_Email"
-        app:layout_constraintTop_toBottomOf="@+id/et_Profile_Email" />
 
     <Button
         android:id="@+id/btn_Profile_DeleteAccount"

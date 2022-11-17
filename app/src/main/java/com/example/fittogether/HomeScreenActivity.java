@@ -9,11 +9,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fittogether.Helpers.Activity;
-import com.example.fittogether.Helpers.Authentication;
+import com.example.fittogether.Api.Activity;
+import com.example.fittogether.Api.Authentication;
+import com.example.fittogether.databinding.ActivityHomeScreenBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,8 +30,8 @@ public class HomeScreenActivity extends AppCompatActivity {
     private FirebaseFirestore store;
     private FirebaseUser currentUser;
 
-    // Views
-    TextView tv_Welcome;
+    // View Binding
+    private ActivityHomeScreenBinding binding;
 
     /**
      * Event Handler onCreate
@@ -39,15 +39,17 @@ public class HomeScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_screen);
+        binding = ActivityHomeScreenBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // Initialize Firebase Connections
         mAuth = FirebaseAuth.getInstance();
         store = FirebaseFirestore.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-        // Retrieve Vies
-        tv_Welcome = findViewById(R.id.tv_Welcome);
+        binding.btnMyWorkouts.setOnClickListener(v -> {
+            Activity.goToMyWorkouts(this, false);
+        });
 
         if(currentUser != null){
             updateUI(currentUser);
@@ -85,13 +87,23 @@ public class HomeScreenActivity extends AppCompatActivity {
         int itemId = item.getItemId();
 
         if (itemId == R.id.mni_Profile) {
-            showProfile();
+            Activity.goToProfile(HomeScreenActivity.this, false);
         }
         else if (itemId == R.id.mni_Logout) {
             Authentication.Logout(HomeScreenActivity.this);
         }
         else if (itemId == R.id.mni_Settings) {
-            showSettings();
+            Activity.goToSettings(HomeScreenActivity.this, false);
+        }
+        else if(itemId == R.id.mni_Admin){
+            String email = currentUser.getEmail();
+            if(email == null || !email.equals("mrmatias1997@gmail.com")){
+                Toast.makeText(getApplicationContext(), "Access Denied - Not an admin", Toast.LENGTH_SHORT).show();
+                Log.i("Admin Access Attempt", "Admin Access Attempt by : " + email);
+            }
+            else{
+                Activity.goToAdmin(HomeScreenActivity.this, false);
+            }
         }
         else{
             return super.onOptionsItemSelected(item);
@@ -104,13 +116,6 @@ public class HomeScreenActivity extends AppCompatActivity {
      * Changes from the homescreen activity to the settings activity
      */
     private void showSettings() {
-    }
-
-    /**
-     * Changes from the homescreen activity to the profile activity
-     */
-    private void showProfile() {
-        Activity.goToProfile(HomeScreenActivity.this, false);
     }
     //endregion
 
@@ -143,14 +148,14 @@ public class HomeScreenActivity extends AppCompatActivity {
                                 if (document.exists()) {
                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                                     String first_name = (String) document.get("First_Name");
-                                    tv_Welcome.setText("Welcome " + first_name);
+                                    binding.tvWelcome.setText("Welcome " + first_name);
                                 } else {
                                     Log.d(TAG, "No such document");
-                                    tv_Welcome.setText("No Such Document");
+                                    binding.tvWelcome.setText("No Such Document");
                                 }
                             } else {
                                 Log.d(TAG, "get failed with ", task.getException());
-                                tv_Welcome.setText("Get Failed");
+                                binding.tvWelcome.setText("Get Failed");
                             }
                         }
                     });

@@ -10,4 +10,7 @@
     <item
         android:id="@+id/mni_Logout"
         android:title="Log Out" />
+    <item
+        android:id="@+id/mni_Admin"
+        android:title="Admin" />
 </menu>

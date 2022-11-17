@@ -1,21 +1,18 @@
-package com.example.fittogether.Helpers;
+package com.example.fittogether.Api;
 
-import static com.example.fittogether.Helpers.Activity.goToLogin;
+import static com.example.fittogether.Api.Activity.goToLogin;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.fittogether.Enums.RequestCode;
-import com.example.fittogether.Exceptions.InvalidEmailException;
-import com.example.fittogether.Exceptions.NullCurrentUserException;
+import com.example.fittogether.Models.Enums.RequestCode;
+import com.example.fittogether.Api.Exceptions.InvalidEmailException;
+import com.example.fittogether.Api.Exceptions.NullCurrentUserException;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,14 +28,11 @@ public class Authentication {
 
     /**
      * Signs out the current user
-     * @return : If the logout was successful (i.e. the current user is null)
      */
-    public static boolean Logout(AppCompatActivity source){
+    public static void Logout(AppCompatActivity source){
         mAuth.signOut();
 
         goToLogin(source, true);
-
-        return mAuth.getCurrentUser() == null;
     }
 
     /**
@@ -58,6 +52,10 @@ public class Authentication {
         source.startActivityForResult(intent, RequestCode.GOOGLE_SIGN_IN.ordinal());
     }
 
+    /**
+     * Deletes the current signed in user
+     * @param source : The source activity
+     */
     public static void deleteAccount(AppCompatActivity source) {
         FirebaseFirestore store = FirebaseFirestore.getInstance();
         try {
@@ -78,14 +76,22 @@ public class Authentication {
             currentUser
                     .delete()
                     .addOnCompleteListener(task -> {
-                        Toast.makeText(source.getApplicationContext(), "Authentication has been deleted", Toast.LENGTH_SHORT).show();
+                        if(task.isSuccessful()) {
+                            Toast.makeText(source.getApplicationContext(), "Authentication has been deleted", Toast.LENGTH_SHORT).show();
 
-                        goToLogin(source, true);
+                            goToLogin(source, true);
+                        }
+                        else{
+                            Toast.makeText(source.getApplicationContext(), "Error deleting your account", Toast.LENGTH_SHORT).show();
+                        }
                     });
+
         } catch(NullCurrentUserException e){
             Log.e(TAG + ":deleteAccount", "Current user is null. - " + e.getMessage());
+            e.printStackTrace();
         } catch(InvalidEmailException e){
             Log.e(TAG + ":deleteAccount", "Invalid email is being used. - " + e.getMessage());
+            e.printStackTrace();
         }
         catch(Exception e) {
             e.printStackTrace();

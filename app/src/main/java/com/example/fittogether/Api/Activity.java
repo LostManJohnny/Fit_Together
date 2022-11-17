@@ -1,13 +1,16 @@
-package com.example.fittogether.Helpers;
+package com.example.fittogether.Api;
 
 import android.content.Context;
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.fittogether.Admin;
 import com.example.fittogether.HomeScreenActivity;
 import com.example.fittogether.LoginActivity;
+import com.example.fittogether.MyWorkouts;
 import com.example.fittogether.Profile;
+import com.example.fittogether.Settings;
 import com.example.fittogether.SignupActivity;
 
 public class Activity {
@@ -40,5 +43,17 @@ public class Activity {
 
     public static void goToLogin(AppCompatActivity source, boolean finish) {
         changeActivity(source, LoginActivity.class, finish);
+    }
+
+    public static void goToAdmin(AppCompatActivity source, boolean finish) {
+        changeActivity(source, Admin.class, finish);
+    }
+
+    public static void goToSettings(AppCompatActivity source, boolean finish) {
+        changeActivity(source, Settings.class, finish);
+    }
+
+    public static void goToMyWorkouts(AppCompatActivity source, boolean finish) {
+        changeActivity(source, MyWorkouts.class, finish);
     }
 }

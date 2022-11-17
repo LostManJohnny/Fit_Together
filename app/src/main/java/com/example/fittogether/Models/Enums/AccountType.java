@@ -1,4 +1,4 @@
-package com.example.fittogether.Enums;
+package com.example.fittogether.Models.Enums;
 
 public enum AccountType {
     CLIENT,

@@ -1,4 +1,4 @@
-package com.example.fittogether.Exceptions;
+package com.example.fittogether.Api.Exceptions;
 
 public class InvalidEmailException extends Exception{
 

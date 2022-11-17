@@ -9,15 +9,15 @@
     tools:context=".HomeScreenActivity">
 
     <Button
-        android:id="@+id/btn_CreateWorkout"
+        android:id="@+id/btn_MyWorkouts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="16dp"
         android:background="#00FFFFFF"
-        android:text="Create a Workout"
+        android:text="My Workouts"
         android:textColor="#424141"
-        android:textSize="10sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_FindTrainer"
         app:layout_constraintStart_toStartOf="parent" />
@@ -31,9 +31,9 @@
         android:text="Find a Trainer"
         android:textColor="#424141"
         android:textSize="10sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btn_CreateWorkout"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_MyWorkouts"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_CreateWorkout" />
+        app:layout_constraintStart_toEndOf="@+id/btn_MyWorkouts" />
 
     <TextView
         android:id="@+id/tv_Welcome"

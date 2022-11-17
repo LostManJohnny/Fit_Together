@@ -1,6 +1,6 @@
-package com.example.fittogether.DataModels;
+package com.example.fittogether.Models.Class;
 
-import com.example.fittogether.Enums.AccountType;
+import com.example.fittogether.Models.Enums.AccountType;
 import com.google.firebase.firestore.Exclude;
 
 import java.util.HashMap;
@@ -11,9 +11,7 @@ import java.util.Map;
  */
 
 public class User {
-    private String  first_name,
-                    last_name,
-                    email;
+    private final Map<String, Object> map;
 
     private AccountType account_type;
 
@@ -32,10 +30,16 @@ public class User {
      * @param account_type : Whether they are a client or trainer
      */
     public User(String first_name, String last_name, String email, AccountType account_type){
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.email = email;
-        this.account_type = account_type;
+        map = new HashMap<>();
+
+        map.put("First Name", first_name);
+        map.put("Last Name", last_name);
+        map.put("Email", email);
+        map.put("Account Type", account_type);
+    }
+
+    public User(Map<String, Object> map){
+        this.map = map;
     }
 
     /**
@@ -44,13 +48,7 @@ public class User {
      */
     @Exclude
     public Map<String, Object> toMap(){
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("First_Name", first_name);
-        result.put("Last_Name", last_name);
-        result.put("Email", email);
-        result.put("AccountType", account_type);
-
-        return result;
+        return map;
     }
 
     //region Getters
@@ -59,7 +57,7 @@ public class User {
      * @return : First Name
      */
     public String getFirstName(){
-        return first_name;
+        return (String) map.get("First Name");
     }
 
     /**
@@ -67,7 +65,7 @@ public class User {
      * @return : Last Name
      */
     public String getLastName(){
-        return last_name;
+        return (String) map.get("Last Name");
     }
 
     /**
@@ -75,7 +73,7 @@ public class User {
      * @return : Email
      */
     public String getEmail(){
-        return email;
+        return (String) map.get("Email");
     }
 
     /**
@@ -85,6 +83,8 @@ public class User {
     public AccountType getAccountType(){
         return account_type;
     }
+
+    public Map<String, Object> getWorkouts(){return (HashMap<String, Object>) map.get("Workouts");}
     //endregion
 
 }
