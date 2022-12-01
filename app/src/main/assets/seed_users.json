@@ -491,7 +491,7 @@
               }
             ]
           },
-          "Workout 6 - MIX": {
+          "Workout 6 - MIXED": {
             "title": "Workout 6 - Mixed",
             "size": 5,
             "unit": "lbs",
@@ -611,6 +611,30 @@
                   {
                     "weight": 400.00,
                     "reps": 1
+                  }
+                ]
+              }
+            ]
+          },
+          "Workout 7 - TIME_ONLY": {
+            "title": "Workout 7 - TIME_ONLY",
+            "size": 4,
+            "exercises": [
+              {
+                "name": "Push Up",
+                "type": "TIME_ONLY",
+                "sets": [
+                  {
+                    "time": "00:01:30:00"
+                  },
+                  {
+                    "time": "00:01:30:00"
+                  },
+                  {
+                    "time": "00:01:30:00"
+                  },
+                  {
+                    "time": "00:01:30:00"
                   }
                 ]
               }

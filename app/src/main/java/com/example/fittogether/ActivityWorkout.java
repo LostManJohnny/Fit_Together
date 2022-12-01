@@ -61,6 +61,7 @@ public class ActivityWorkout extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         String title = extras.getString("name");
+        Log.i(TAG + ":title", "Title => " + title);
 
         if (title != null && !title.equals("")) {
             binding.tvWorkoutTitle.setText(title);
@@ -98,9 +99,11 @@ public class ActivityWorkout extends AppCompatActivity {
                             String json_string = gson.toJson(results, Map.class);
                             Log.i(TAG + ":getUser", "json_string -> " + json_string);
 
-
                             JsonObject user = gson.fromJson(json_string, JsonObject.class);
 
+                            Log.i(TAG + ":getUser", "json_object -> " + user);
+
+                            Log.i(TAG + ":getUser:title", "title -> " + title);
                             JsonObject current_workout = user
                                     .get("workouts").getAsJsonObject()
                                     .get("personal").getAsJsonObject()

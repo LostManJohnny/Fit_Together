@@ -1,5 +1,7 @@
 package com.example.fittogether.Models.Class;
 
+import androidx.annotation.NonNull;
+
 public class Timer {
     private int hour;
     private int minute;
@@ -47,5 +49,18 @@ public class Timer {
 
     public void setSecond(int second) {
         this.second = second;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        String time = "";
+
+        if(hour != 0) time += hour + ":";
+
+        time += minute + ":";
+        time += second;
+
+        return time;
     }
 }

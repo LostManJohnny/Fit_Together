@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Map;
 
 public class MyWorkouts extends AppCompatActivity {
@@ -80,10 +81,12 @@ public class MyWorkouts extends AppCompatActivity {
 
                                 if (results != null) {
                                     // Get personal workouts
-                                    JSONArray personal_workouts = getPersonalWorkouts(results);
+                                    JSONObject personal_workouts = getPersonalWorkouts(results);
+                                    Iterator<String> keys = personal_workouts.keys();
 
-                                    for(int i=0; i<personal_workouts.length(); i++){
-                                        JSONObject workout = personal_workouts.getJSONObject(i);
+                                    while(keys.hasNext()){
+                                        String key = keys.next();
+                                        JSONObject workout = personal_workouts.getJSONObject(key);
                                         previews.add(
                                                 new WorkoutPreview(
                                                         workout.getString("title"),
@@ -164,12 +167,12 @@ public class MyWorkouts extends AppCompatActivity {
         return exercises;
     }
 
-    private JSONArray getPersonalWorkouts(Map<String, Object> results) throws JSONException {
+    private JSONObject getPersonalWorkouts(Map<String, Object> results) throws JSONException {
         // Convert results to JSON object
         JSONObject results_json = new JSONObject(results);
         // Parse out workouts
         JSONObject workouts_json = results_json.getJSONObject("workouts");
         // Parse out personal workouts
-        return workouts_json.getJSONArray("personal");
+        return workouts_json.getJSONObject("personal");
     }
 }

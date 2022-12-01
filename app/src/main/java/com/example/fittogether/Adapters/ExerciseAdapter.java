@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fittogether.Models.Class.Exercise;
+import com.example.fittogether.Models.Enums.ExerciseType;
 import com.example.fittogether.R;
 
 import java.util.ArrayList;
@@ -46,16 +47,22 @@ public class ExerciseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ExerciseGeneralViewHolder viewHolder = (ExerciseGeneralViewHolder) holder;
+
         Exercise ex = exerciseList.get(position);
+        viewHolder.tv_Name.setText(ex.getName());
 
-        Log.i(TAG + ":holder.class():", holder.getClass().toString());
+        if(ex.getTotalSets() > 0 && ex.getType() == ExerciseType.TIME_ONLY){
+            viewHolder.tv_duration.setText(
+                    ex.getSetList().get(0).getTimer().toString()
+            );
+            viewHolder.tv_measure.setText("Time");
+        }
+        else{
+            viewHolder.tv_duration.setText(Integer.toString(ex.getTotalSets()));
+            viewHolder.tv_measure.setText("Sets");
+        }
 
-
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return exerciseList.get(position).getType().ordinal();
     }
 
     @Override

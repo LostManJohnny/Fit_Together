@@ -94,7 +94,7 @@ public class Exercise {
             }
             if(set.has("time")){
                 new_set.setTimer(
-                        new Timer(set.get("timer").getAsString())
+                        new Timer(set.get("time").getAsString())
                 );
             }
 
