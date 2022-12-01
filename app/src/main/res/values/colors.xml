@@ -10,4 +10,7 @@
     <color name="error">###CC0000</color>
     <color name="btn_warning_background">#C82333</color>
     <color name="btn_warning_text">#f7f7f9</color>
+    <color name="primary">#f15a24</color>
+    <color name="secondary">#cccccc</color>
+    <color name="text_on_orange">#E6FFFFFF</color>
 </resources>

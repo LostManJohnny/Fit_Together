@@ -1,6 +1,9 @@
 package com.example.fittogether.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.fittogether.Models.Class.Workout;
+import com.example.fittogether.ActivityWorkout;
+import com.example.fittogether.Models.Class.WorkoutPreview;
 import com.example.fittogether.R;
 
 import java.util.ArrayList;
@@ -18,9 +22,9 @@ import java.util.ArrayList;
 public class WorkoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Context context;
-    ArrayList<Workout> workouts;
+    ArrayList<WorkoutPreview> workouts;
 
-    public WorkoutAdapter(Context context, ArrayList<Workout> workouts){
+    public WorkoutAdapter(Context context, ArrayList<WorkoutPreview> workouts){
         this.context = context;
         this.workouts = workouts;
     }
@@ -29,37 +33,47 @@ public class WorkoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new WorkoutViewHolder(
-                LayoutInflater
-                        .from(context)
-                        .inflate(
-                            R.layout.rv_row_workout,
-                            parent,
-                            false)
+                    LayoutInflater
+                            .from(context)
+                            .inflate(
+                                R.layout.view_workout,
+                                parent,
+                                false)
         );
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Workout workout = workouts.get(position);
+        WorkoutPreview workout = workouts.get(position);
 
         if(holder.getClass() == WorkoutViewHolder.class){
             WorkoutViewHolder workoutViewholder = (WorkoutViewHolder) holder;
 
             workoutViewholder.tv_Title.setText(workout.getName());
 
-            workoutViewholder.tv_Count.setText(workout.size());
+            workoutViewholder.tv_Count.setText(Integer.toString(workout.getSize()));
+
+            workoutViewholder.btn_Edit.setOnClickListener(view -> {
+                Intent intent = new Intent(context, ActivityWorkout.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("name", workout.getName());
+
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            });
         }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return workouts.size();
     }
 }
 
 class WorkoutViewHolder extends RecyclerView.ViewHolder{
-    TextView tv_Title, tv_Count;
-    Button btn_Edit;
+    public TextView tv_Title, tv_Count;
+    public Button btn_Edit;
 
     public WorkoutViewHolder(@NonNull View itemView) {
         super(itemView);

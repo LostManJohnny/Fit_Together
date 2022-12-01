@@ -41,8 +41,7 @@ android {
         main {
             res {
                 srcDirs 'src\\main\\res',
-                        'src\\main\\res\\layout\\',
-                        'src\\main\\res\\layout\\recyclerViewRows'
+                        'src\\main\\res\\layout\\'
             }
         }
     }

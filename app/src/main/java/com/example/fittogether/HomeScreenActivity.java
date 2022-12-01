@@ -47,6 +47,12 @@ public class HomeScreenActivity extends AppCompatActivity {
         store = FirebaseFirestore.getInstance();
         currentUser = mAuth.getCurrentUser();
 
+        // Check if user is signed in (non-null) and update UI accordingly.
+        currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Activity.goToLogin(HomeScreenActivity.this, true);
+        }
+
         binding.btnMyWorkouts.setOnClickListener(v -> {
             Activity.goToMyWorkouts(this, false);
         });
@@ -56,19 +62,6 @@ public class HomeScreenActivity extends AppCompatActivity {
         }
         else{
             Toast.makeText(getApplicationContext(), "Authentication error", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
-     * Event Handler onStart
-     */
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        currentUser = mAuth.getCurrentUser();
-        if(currentUser == null){
-            Activity.goToLogin(HomeScreenActivity.this, true);
         }
     }
 
@@ -97,13 +90,10 @@ public class HomeScreenActivity extends AppCompatActivity {
         }
         else if(itemId == R.id.mni_Admin){
             String email = currentUser.getEmail();
-            if(email == null || !email.equals("mrmatias1997@gmail.com")){
-                Toast.makeText(getApplicationContext(), "Access Denied - Not an admin", Toast.LENGTH_SHORT).show();
-                Log.i("Admin Access Attempt", "Admin Access Attempt by : " + email);
-            }
-            else{
-                Activity.goToAdmin(HomeScreenActivity.this, false);
-            }
+            Toast.makeText(this, "Email : " + email, Toast.LENGTH_SHORT).show();
+
+            Activity.goToAdmin(HomeScreenActivity.this, false);
+
         }
         else{
             return super.onOptionsItemSelected(item);
@@ -125,14 +115,13 @@ public class HomeScreenActivity extends AppCompatActivity {
      */
     private void updateUI(FirebaseUser user) {
         String user_primary_key = user.getEmail();
+        Toast.makeText(this, "Email " + user_primary_key, Toast.LENGTH_SHORT).show();
 
         if(user_primary_key != null) {
-            DocumentReference docRef =
-                    store
-                            .collection("users")
-                            .document(user_primary_key);
-
-            docRef.get()
+            store
+                    .collection("users")
+                    .document(user_primary_key)
+                    .get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         /**
                          * Event Handler onComplete
@@ -147,7 +136,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                                 DocumentSnapshot document = task.getResult();
                                 if (document.exists()) {
                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                                    String first_name = (String) document.get("First_Name");
+                                    String first_name = (String) document.get("first_name");
                                     binding.tvWelcome.setText("Welcome " + first_name);
                                 } else {
                                     Log.d(TAG, "No such document");

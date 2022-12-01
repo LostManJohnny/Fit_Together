@@ -189,9 +189,9 @@ public class Profile extends AppCompatActivity {
                 }
 
                 Map<String, Object> data = new HashMap<>();
-                data.put("First_Name", binding.etProfileFirstName.getText().toString());
-                data.put("Last_Name", binding.etProfileLastName.getText().toString());
-                data.put("Email", binding.etProfileEmail.getText().toString());
+                data.put("first_name", binding.etProfileFirstName.getText().toString());
+                data.put("last_name", binding.etProfileLastName.getText().toString());
+                data.put("email", binding.etProfileEmail.getText().toString());
 
                 store
                         .collection("users")
@@ -256,11 +256,11 @@ public class Profile extends AppCompatActivity {
                                 Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
 
                                 binding.etProfileFirstName.setText(
-                                        (String)documentSnapshot.get("First_Name"));
+                                        (String)documentSnapshot.get("first_name"));
                                 binding.etProfileLastName.setText(
-                                        (String)documentSnapshot.get("Last_Name"));
+                                        (String)documentSnapshot.get("last_name"));
                                 binding.etProfileEmail.setText(
-                                        (String)documentSnapshot.get("Email"));
+                                        (String)documentSnapshot.get("email"));
 
                             } else {
                                 Log.d(TAG, "No such document");

@@ -1,70 +1,106 @@
 package com.example.fittogether.Models.Class;
 
+import androidx.annotation.Nullable;
+
+import com.example.fittogether.Models.Enums.ExerciseType;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
 public class Exercise {
     private String name;
-    private String gifURL;
+    private ExerciseType type;
+    private ArrayList<ExerciseSet> setList;
 
-    private final ArrayList<String> equipmentList;
-    private final ArrayList<String> bodyParts;
-    private final ArrayList<String> targets;
+    //region Constructors
 
-    public Exercise(String bodyPart, String equipment, String gifURL, String name, String target){
-        this.gifURL = gifURL;
-        this.name = name;
-
-        equipmentList = new ArrayList<>();
-        bodyParts = new ArrayList<>();
-        targets = new ArrayList<>();
-
-        equipmentList.add(equipment);
-        bodyParts.add(bodyPart);
-        targets.add(target);
+    public Exercise() {
+        this("");
     }
 
-    public void setName(String name){
-        this.name = name;
+    public Exercise(String name) {
+        this(name, null);
     }
 
-    public String getName(){
+    public Exercise(ExerciseType type) {
+        this("", type);
+    }
+
+    public Exercise(String name, ExerciseType type) {
+        this.name = name;
+        this.type = type;
+    }
+
+    //endregion
+
+    // region Helpers
+    public int getTotalSets(){
+        return setList.size();
+    }
+    // endregion
+
+    // region Getters
+
+    public String getName() {
         return name;
     }
 
-    public void addEquipment(String equipment){
-        equipmentList.add(equipment);
+    public ExerciseType getType() {
+        return type;
     }
 
-    public void addBodyPart(String bodyPart){
-        bodyParts.add(bodyPart);
+    public ArrayList<ExerciseSet> getSetList() {
+        return setList;
+    }
+    // endregion
+
+    // region Setters
+
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void addTarget(String target){
-        targets.add(target);
+    public void setType(ExerciseType type) {
+        this.type = type;
     }
 
-    public ArrayList<String> getEquipment(){
-        return equipmentList;
+    public void setType(String type){
+        this.type = ExerciseType.valueOf(type);
     }
 
-    public Map<String, Object> toMap(){
-        Map<String, Object> map = new HashMap<>();
-        map.put("Name", name);
-        map.put("Equipment", equipmentList);
-        map.put("BodyParts", bodyParts);
-        map.put("Targets", targets);
-        map.put("GIF", gifURL);
-
-        return map;
+    public void setSetList(ArrayList<ExerciseSet> setList) {
+        this.setList = setList;
     }
 
-    public String getGifURL() {
-        return gifURL;
+    public void setSetList(JsonArray set_list){
+        this.setList = new ArrayList<>();
+
+        for(int i=0; i<set_list.size(); i++){
+            ExerciseSet new_set = new ExerciseSet();
+
+            JsonObject set = set_list.get(i).getAsJsonObject();
+
+            if(set.has("reps")){
+                new_set.setReps(
+                        set.get("reps").getAsInt()
+                );
+            }
+            if(set.has("weight")){
+                new_set.setWeight(
+                        set.get("weight").getAsDouble()
+                );
+            }
+            if(set.has("time")){
+                new_set.setTimer(
+                        new Timer(set.get("timer").getAsString())
+                );
+            }
+
+            setList.add(new_set);
+        }
     }
 
-    public void setGifURL(String gifURL) {
-        this.gifURL = gifURL;
-    }
+    //endregion
 }

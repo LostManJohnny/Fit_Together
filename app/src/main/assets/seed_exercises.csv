@@ -36,7 +36,7 @@ upper arms,leverage machine,http://d205bpvrqc9yn1.cloudfront.net/0019.gif,0019,a
 chest,leverage machine,http://d205bpvrqc9yn1.cloudfront.net/2364.gif,2364,assisted wide-grip chest dip (kneeling),pectorals
 cardio,body weight,http://d205bpvrqc9yn1.cloudfront.net/3220.gif,3220,astride jumps (male),cardiovascular system
 cardio,body weight,http://d205bpvrqc9yn1.cloudfront.net/3672.gif,3672,back and forth step,cardiovascular system
-back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1314.gif,1314,back extension on exercise ball,spine
+back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1314.gif,1314,back extension on listExercise ball,spine
 back,body weight,http://d205bpvrqc9yn1.cloudfront.net/3297.gif,3297,back lever,upper back
 back,body weight,http://d205bpvrqc9yn1.cloudfront.net/1405.gif,1405,back pec stretch,lats
 upper legs,body weight,http://d205bpvrqc9yn1.cloudfront.net/1473.gif,1473,backward jump,quads
@@ -320,24 +320,24 @@ chest,cable,http://d205bpvrqc9yn1.cloudfront.net/0188.gif,0188,cable middle fly,
 back,cable,http://d205bpvrqc9yn1.cloudfront.net/0189.gif,0189,cable one arm bent over row,upper back
 upper arms,cable,http://d205bpvrqc9yn1.cloudfront.net/0190.gif,0190,cable one arm curl,biceps
 chest,cable,http://d205bpvrqc9yn1.cloudfront.net/1262.gif,1262,cable one arm decline chest fly,pectorals
-chest,cable,http://d205bpvrqc9yn1.cloudfront.net/1263.gif,1263,cable one arm fly on exercise ball,pectorals
-chest,cable,http://d205bpvrqc9yn1.cloudfront.net/1264.gif,1264,cable one arm incline fly on exercise ball,pectorals
+chest,cable,http://d205bpvrqc9yn1.cloudfront.net/1263.gif,1263,cable one arm fly on listExercise ball,pectorals
+chest,cable,http://d205bpvrqc9yn1.cloudfront.net/1264.gif,1264,cable one arm incline fly on listExercise ball,pectorals
 chest,cable,http://d205bpvrqc9yn1.cloudfront.net/1265.gif,1265,cable one arm incline press,pectorals
-chest,cable,http://d205bpvrqc9yn1.cloudfront.net/1266.gif,1266,cable one arm incline press on exercise ball,pectorals
+chest,cable,http://d205bpvrqc9yn1.cloudfront.net/1266.gif,1266,cable one arm incline press on listExercise ball,pectorals
 chest,cable,http://d205bpvrqc9yn1.cloudfront.net/0191.gif,0191,cable one arm lateral bent-over,pectorals
 shoulders,cable,http://d205bpvrqc9yn1.cloudfront.net/0192.gif,0192,cable one arm lateral raise,delts
 upper arms,cable,http://d205bpvrqc9yn1.cloudfront.net/1633.gif,1633,cable one arm preacher curl,biceps
-chest,cable,http://d205bpvrqc9yn1.cloudfront.net/1267.gif,1267,cable one arm press on exercise ball,pectorals
+chest,cable,http://d205bpvrqc9yn1.cloudfront.net/1267.gif,1267,cable one arm press on listExercise ball,pectorals
 back,cable,http://d205bpvrqc9yn1.cloudfront.net/3563.gif,3563,cable one arm pulldown,lats
 upper arms,cable,http://d205bpvrqc9yn1.cloudfront.net/1635.gif,1635,cable one arm reverse preacher curl,biceps
 back,cable,http://d205bpvrqc9yn1.cloudfront.net/0193.gif,0193,cable one arm straight back high row (kneeling),upper back
 upper arms,cable,http://d205bpvrqc9yn1.cloudfront.net/1723.gif,1723,cable one arm tricep pushdown,triceps
 upper arms,cable,http://d205bpvrqc9yn1.cloudfront.net/1636.gif,1636,cable overhead curl,biceps
-upper arms,cable,http://d205bpvrqc9yn1.cloudfront.net/1637.gif,1637,cable overhead curl on exercise ball,biceps
+upper arms,cable,http://d205bpvrqc9yn1.cloudfront.net/1637.gif,1637,cable overhead curl on listExercise ball,biceps
 upper arms,cable,http://d205bpvrqc9yn1.cloudfront.net/0194.gif,0194,cable overhead triceps extension (rope attachment),triceps
 back,cable,http://d205bpvrqc9yn1.cloudfront.net/1319.gif,1319,cable palm rotational row,upper back
 upper arms,cable,http://d205bpvrqc9yn1.cloudfront.net/0195.gif,0195,cable preacher curl,biceps
-chest,cable,http://d205bpvrqc9yn1.cloudfront.net/1268.gif,1268,cable press on exercise ball,pectorals
+chest,cable,http://d205bpvrqc9yn1.cloudfront.net/1268.gif,1268,cable press on listExercise ball,pectorals
 upper legs,cable,http://d205bpvrqc9yn1.cloudfront.net/0196.gif,0196,cable pull through (with rope),glutes
 back,cable,http://d205bpvrqc9yn1.cloudfront.net/0198.gif,0198,cable pulldown,lats
 back,cable,http://d205bpvrqc9yn1.cloudfront.net/0197.gif,0197,cable pulldown (pro lat bar),lats
@@ -433,7 +433,7 @@ chest,body weight,http://d205bpvrqc9yn1.cloudfront.net/1271.gif,1271,chest and f
 chest,body weight,http://d205bpvrqc9yn1.cloudfront.net/0251.gif,0251,chest dip,pectorals
 chest,body weight,http://d205bpvrqc9yn1.cloudfront.net/1430.gif,1430,chest dip (on dip-pull-up cage),pectorals
 chest,body weight,http://d205bpvrqc9yn1.cloudfront.net/2462.gif,2462,chest dip on straight bar,pectorals
-chest,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1272.gif,1272,chest stretch with exercise ball,pectorals
+chest,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1272.gif,1272,chest stretch with listExercise ball,pectorals
 chest,body weight,http://d205bpvrqc9yn1.cloudfront.net/3216.gif,3216,chest tap push-up (male),pectorals
 back,body weight,http://d205bpvrqc9yn1.cloudfront.net/1326.gif,1326,chin-up,lats
 back,body weight,http://d205bpvrqc9yn1.cloudfront.net/0253.gif,0253,chin-ups (narrow parallel grip),upper back
@@ -467,8 +467,8 @@ upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1646.gif,1646,dumbbell 
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1647.gif,1647,dumbbell alternate preacher curl,biceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1648.gif,1648,dumbbell alternate seated hammer curl,biceps
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0286.gif,0286,dumbbell alternate side press,delts
-upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1649.gif,1649,dumbbell alternating bicep curl with leg raised on exercise ball,biceps
-upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1650.gif,1650,dumbbell alternating seated bicep curl on exercise ball,biceps
+upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1649.gif,1649,dumbbell alternating bicep curl with leg raised on listExercise ball,biceps
+upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1650.gif,1650,dumbbell alternating seated bicep curl on listExercise ball,biceps
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/2137.gif,2137,dumbbell arnold press,delts
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0287.gif,0287,dumbbell arnold press v. 2,delts
 chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0288.gif,0288,dumbbell around pullover,pectorals
@@ -477,7 +477,7 @@ shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0290.gif,0290,dumbbell b
 upper legs,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0291.gif,0291,dumbbell bench squat,glutes
 back,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0293.gif,0293,dumbbell bent over row,upper back
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1651.gif,1651,dumbbell bicep curl lunge with bowling motion,biceps
-upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1652.gif,1652,dumbbell bicep curl on exercise ball with leg raised,biceps
+upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1652.gif,1652,dumbbell bicep curl on listExercise ball with leg raised,biceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1653.gif,1653,dumbbell bicep curl with stork stance,biceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0294.gif,0294,dumbbell biceps curl,biceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/2401.gif,2401,dumbbell biceps curl (with arm blaster),biceps
@@ -506,14 +506,14 @@ upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0306.gif,0306,dumbbell 
 chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0307.gif,0307,dumbbell decline twist fly,pectorals
 lower arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1437.gif,1437,dumbbell finger curls,forearms
 chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0308.gif,0308,dumbbell fly,pectorals
-chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1277.gif,1277,dumbbell fly on exercise ball,pectorals
+chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1277.gif,1277,dumbbell fly on listExercise ball,pectorals
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1732.gif,1732,dumbbell forward lunge triceps extension,triceps
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0310.gif,0310,dumbbell front raise,delts
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0309.gif,0309,dumbbell front raise v. 2,delts
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0311.gif,0311,dumbbell full can lateral raise,delts
 upper legs,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1760.gif,1760,dumbbell goblet squat,quads
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0313.gif,0313,dumbbell hammer curl,biceps
-upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1659.gif,1659,dumbbell hammer curl on exercise ball,biceps
+upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1659.gif,1659,dumbbell hammer curl on listExercise ball,biceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0312.gif,0312,dumbbell hammer curl v. 2,biceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/2402.gif,2402,dumbbell hammer curls (with arm blaster),biceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1664.gif,1664,dumbbell high curl,biceps
@@ -524,20 +524,20 @@ chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0316.gif,0316,dumbbell incli
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0318.gif,0318,dumbbell incline curl,biceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0317.gif,0317,dumbbell incline curl v. 2,biceps
 chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0319.gif,0319,dumbbell incline fly,pectorals
-chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1278.gif,1278,dumbbell incline fly on exercise ball,pectorals
+chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1278.gif,1278,dumbbell incline fly on listExercise ball,pectorals
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0320.gif,0320,dumbbell incline hammer curl,biceps
 chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0321.gif,0321,dumbbell incline hammer press,pectorals
-upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1618.gif,1618,dumbbell incline hammer press on exercise ball,triceps
+upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1618.gif,1618,dumbbell incline hammer press on listExercise ball,triceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0322.gif,0322,dumbbell incline inner biceps curl,biceps
 chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1279.gif,1279,dumbbell incline one arm fly,pectorals
-chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1280.gif,1280,dumbbell incline one arm fly on exercise ball,pectorals
+chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1280.gif,1280,dumbbell incline one arm fly on listExercise ball,pectorals
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1619.gif,1619,dumbbell incline one arm hammer press,triceps
-upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1620.gif,1620,dumbbell incline one arm hammer press on exercise ball,triceps
+upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1620.gif,1620,dumbbell incline one arm hammer press on listExercise ball,triceps
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0323.gif,0323,dumbbell incline one arm lateral raise,delts
 chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1281.gif,1281,dumbbell incline one arm press,pectorals
-chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1282.gif,1282,dumbbell incline one arm press on exercise ball,pectorals
+chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1282.gif,1282,dumbbell incline one arm press on listExercise ball,pectorals
 chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0324.gif,0324,dumbbell incline palm-in press,pectorals
-chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1283.gif,1283,dumbbell incline press on exercise ball,pectorals
+chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1283.gif,1283,dumbbell incline press on listExercise ball,pectorals
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0325.gif,0325,dumbbell incline raise,delts
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0326.gif,0326,dumbbell incline rear lateral raise,delts
 back,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0327.gif,0327,dumbbell incline row,upper back
@@ -550,8 +550,8 @@ upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1733.gif,1733,dumbbell 
 back,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/3541.gif,3541,dumbbell incline y-raise,upper back
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0332.gif,0332,dumbbell iron cross,delts
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0333.gif,0333,dumbbell kickback,triceps
-upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1734.gif,1734,dumbbell kickbacks on exercise ball,triceps
-upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1660.gif,1660,dumbbell kneeling bicep curl exercise ball,biceps
+upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1734.gif,1734,dumbbell kickbacks on listExercise ball,triceps
+upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1660.gif,1660,dumbbell kneeling bicep curl listExercise ball,biceps
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0334.gif,0334,dumbbell lateral raise,delts
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0335.gif,0335,dumbbell lateral to front raise,delts
 upper legs,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0336.gif,0336,dumbbell lunge,glutes
@@ -571,7 +571,7 @@ shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0345.gif,0345,dumbbell l
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0346.gif,0346,dumbbell lying one arm supinated triceps extension,triceps
 lower arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0347.gif,0347,dumbbell lying pronation,forearms
 lower arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/2705.gif,2705,dumbbell lying pronation on floor,forearms
-chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1284.gif,1284,dumbbell lying pullover on exercise ball,pectorals
+chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1284.gif,1284,dumbbell lying pullover on listExercise ball,pectorals
 back,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1328.gif,1328,dumbbell lying rear delt row,upper back
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0348.gif,0348,dumbbell lying rear lateral raise,delts
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1735.gif,1735,dumbbell lying single extension,triceps
@@ -584,27 +584,27 @@ upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1662.gif,1662,dumbbell 
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0352.gif,0352,dumbbell neutral grip bench press,triceps
 chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1285.gif,1285,dumbbell one arm bench fly,pectorals
 back,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0292.gif,0292,dumbbell one arm bent-over row,upper back
-chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1286.gif,1286,dumbbell one arm chest fly on exercise ball,pectorals
+chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1286.gif,1286,dumbbell one arm chest fly on listExercise ball,pectorals
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0353.gif,0353,dumbbell one arm concetration curl (on stability ball),biceps
 chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1287.gif,1287,dumbbell one arm decline chest press,pectorals
-chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1288.gif,1288,dumbbell one arm fly on exercise ball,pectorals
-upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1736.gif,1736,dumbbell one arm french press on exercise ball,triceps
+chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1288.gif,1288,dumbbell one arm fly on listExercise ball,pectorals
+upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1736.gif,1736,dumbbell one arm french press on listExercise ball,triceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1663.gif,1663,dumbbell one arm hammer preacher curl,biceps
-upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1621.gif,1621,dumbbell one arm hammer press on exercise ball,triceps
+upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1621.gif,1621,dumbbell one arm hammer press on listExercise ball,triceps
 chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1289.gif,1289,dumbbell one arm incline chest press,pectorals
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0354.gif,0354,dumbbell one arm kickback,triceps
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0355.gif,0355,dumbbell one arm lateral raise,delts
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0356.gif,0356,dumbbell one arm lateral raise with support,delts
-chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1290.gif,1290,dumbbell one arm press on exercise ball,pectorals
+chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1290.gif,1290,dumbbell one arm press on listExercise ball,pectorals
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1665.gif,1665,dumbbell one arm prone curl,biceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1666.gif,1666,dumbbell one arm prone hammer curl,biceps
-chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1291.gif,1291,dumbbell one arm pullover on exercise ball,pectorals
+chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1291.gif,1291,dumbbell one arm pullover on listExercise ball,pectorals
 lower arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0358.gif,0358,dumbbell one arm revers wrist curl,forearms
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0359.gif,0359,dumbbell one arm reverse fly (with support),delts
 chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1622.gif,1622,dumbbell one arm reverse grip press,pectorals
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1414.gif,1414,dumbbell one arm reverse preacher curl,biceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1667.gif,1667,dumbbell one arm reverse spider curl,biceps
-upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1668.gif,1668,dumbbell one arm seated bicep curl on exercise ball,biceps
+upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1668.gif,1668,dumbbell one arm seated bicep curl on listExercise ball,biceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1669.gif,1669,dumbbell one arm seated hammer curl,biceps
 lower arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1415.gif,1415,dumbbell one arm seated neutral wrist curl,forearms
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0361.gif,0361,dumbbell one arm shoulder press,delts
@@ -616,7 +616,7 @@ upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0362.gif,0362,dumbbell 
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0363.gif,0363,dumbbell one arm upright row,delts
 lower arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0364.gif,0364,dumbbell one arm wrist curl,forearms
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1672.gif,1672,dumbbell one arm zottman preacher curl,biceps
-chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1292.gif,1292,dumbbell one leg fly on exercise ball,pectorals
+chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1292.gif,1292,dumbbell one leg fly on listExercise ball,pectorals
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0365.gif,0365,dumbbell over bench neutral wrist curl,biceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0366.gif,0366,dumbbell over bench one arm  neutral wrist curl,biceps
 lower arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1441.gif,1441,dumbbell over bench one arm reverse wrist curl,forearms
@@ -628,14 +628,14 @@ upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1623.gif,1623,dumbbell 
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0370.gif,0370,dumbbell peacher hammer curl,biceps
 upper legs,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0371.gif,0371,dumbbell plyo squat,glutes
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0372.gif,0372,dumbbell preacher curl,biceps
-upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1673.gif,1673,dumbbell preacher curl over exercise ball,biceps
-chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1293.gif,1293,dumbbell press on exercise ball,pectorals
+upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1673.gif,1673,dumbbell preacher curl over listExercise ball,biceps
+chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1293.gif,1293,dumbbell press on listExercise ball,pectorals
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0373.gif,0373,dumbbell pronate-grip triceps extension,triceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0374.gif,0374,dumbbell prone incline curl,biceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1674.gif,1674,dumbbell prone incline hammer curl,biceps
 chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0375.gif,0375,dumbbell pullover,pectorals
-chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1294.gif,1294,dumbbell pullover hip extension on exercise ball,pectorals
-chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1295.gif,1295,dumbbell pullover on exercise ball,pectorals
+chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1294.gif,1294,dumbbell pullover hip extension on listExercise ball,pectorals
+chest,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1295.gif,1295,dumbbell pullover on listExercise ball,pectorals
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1700.gif,1700,dumbbell push press,delts
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0376.gif,0376,dumbbell raise,delts
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/2292.gif,2292,dumbbell rear delt raise,delts
@@ -657,7 +657,7 @@ upper legs,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1459.gif,1459,dumbbell 
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0386.gif,0386,dumbbell rotation reverse fly,delts
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/2397.gif,2397,dumbbell scott press,delts
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0387.gif,0387,dumbbell seated alternate front raise,delts
-upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1676.gif,1676,dumbbell seated alternate hammer curl on exercise ball,biceps
+upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1676.gif,1676,dumbbell seated alternate hammer curl on listExercise ball,biceps
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0388.gif,0388,dumbbell seated alternate press,delts
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/3546.gif,3546,dumbbell seated alternate shoulder,delts
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0389.gif,0389,dumbbell seated bench extension,triceps
@@ -676,7 +676,7 @@ upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0394.gif,0394,dumbbell 
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0396.gif,0396,dumbbell seated lateral raise,delts
 shoulders,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0395.gif,0395,dumbbell seated lateral raise v. 2,delts
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0397.gif,0397,dumbbell seated neutral wrist curl,biceps
-upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1679.gif,1679,dumbbell seated one arm bicep curl on exercise ball with leg raised,biceps
+upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1679.gif,1679,dumbbell seated one arm bicep curl on listExercise ball with leg raised,biceps
 upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0398.gif,0398,dumbbell seated one arm kickback,triceps
 lower arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0399.gif,0399,dumbbell seated one arm rotate,forearms
 lower legs,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/0400.gif,0400,dumbbell seated one leg calf raise,calves
@@ -750,28 +750,28 @@ upper arms,body weight,http://d205bpvrqc9yn1.cloudfront.net/3287.gif,3287,elbow 
 back,body weight,http://d205bpvrqc9yn1.cloudfront.net/1772.gif,1772,elbow lift - reverse push-up,upper back
 waist,body weight,http://d205bpvrqc9yn1.cloudfront.net/0443.gif,0443,elbow-to-knee,abs
 back,body weight,http://d205bpvrqc9yn1.cloudfront.net/3292.gif,3292,elevator,upper back
-back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1332.gif,1332,exercise ball alternating arm ups,lats
-back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1333.gif,1333,exercise ball back extension with arms extended,spine
-back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1334.gif,1334,exercise ball back extension with hands behind head,spine
-back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1335.gif,1335,exercise ball back extension with knees off ground,spine
-back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1336.gif,1336,exercise ball back extension with rotation,spine
-upper arms,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1744.gif,1744,exercise ball dip,triceps
-upper legs,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1559.gif,1559,exercise ball hip flexor stretch,glutes
-back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1338.gif,1338,exercise ball hug,spine
-back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1339.gif,1339,exercise ball lat stretch,lats
-back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1341.gif,1341,exercise ball lower back stretch (pyramid),lats
-back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1342.gif,1342,exercise ball lying side lat stretch,lats
-lower legs,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1382.gif,1382,exercise ball on the wall calf raise,calves
-lower legs,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/3241.gif,3241,exercise ball on the wall calf raise (tennis ball between ankles),calves
-lower legs,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/3240.gif,3240,exercise ball on the wall calf raise (tennis ball between knees),calves
-upper legs,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1416.gif,1416,exercise ball one leg prone lower body rotation,glutes
-upper legs,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1417.gif,1417,exercise ball one legged diagonal kick hamstring curl,glutes
-chest,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1296.gif,1296,exercise ball pike push up,pectorals
-back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1343.gif,1343,exercise ball prone leg raise,spine
-upper legs,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1560.gif,1560,exercise ball seated hamstring stretch,hamstrings
-upper arms,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1745.gif,1745,exercise ball seated triceps stretch,triceps
-upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1746.gif,1746,exercise ball supine triceps extension,triceps
-upper arms,ez barbell,http://d205bpvrqc9yn1.cloudfront.net/1747.gif,1747,ez bar french press on exercise ball,triceps
+back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1332.gif,1332,listExercise ball alternating arm ups,lats
+back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1333.gif,1333,listExercise ball back extension with arms extended,spine
+back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1334.gif,1334,listExercise ball back extension with hands behind head,spine
+back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1335.gif,1335,listExercise ball back extension with knees off ground,spine
+back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1336.gif,1336,listExercise ball back extension with rotation,spine
+upper arms,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1744.gif,1744,listExercise ball dip,triceps
+upper legs,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1559.gif,1559,listExercise ball hip flexor stretch,glutes
+back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1338.gif,1338,listExercise ball hug,spine
+back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1339.gif,1339,listExercise ball lat stretch,lats
+back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1341.gif,1341,listExercise ball lower back stretch (pyramid),lats
+back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1342.gif,1342,listExercise ball lying side lat stretch,lats
+lower legs,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1382.gif,1382,listExercise ball on the wall calf raise,calves
+lower legs,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/3241.gif,3241,listExercise ball on the wall calf raise (tennis ball between ankles),calves
+lower legs,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/3240.gif,3240,listExercise ball on the wall calf raise (tennis ball between knees),calves
+upper legs,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1416.gif,1416,listExercise ball one leg prone lower body rotation,glutes
+upper legs,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1417.gif,1417,listExercise ball one legged diagonal kick hamstring curl,glutes
+chest,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1296.gif,1296,listExercise ball pike push up,pectorals
+back,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1343.gif,1343,listExercise ball prone leg raise,spine
+upper legs,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1560.gif,1560,listExercise ball seated hamstring stretch,hamstrings
+upper arms,stability ball,http://d205bpvrqc9yn1.cloudfront.net/1745.gif,1745,listExercise ball seated triceps stretch,triceps
+upper arms,dumbbell,http://d205bpvrqc9yn1.cloudfront.net/1746.gif,1746,listExercise ball supine triceps extension,triceps
+upper arms,ez barbell,http://d205bpvrqc9yn1.cloudfront.net/1747.gif,1747,ez bar french press on listExercise ball,triceps
 back,ez barbell,http://d205bpvrqc9yn1.cloudfront.net/3010.gif,3010,ez bar lying bent arms pullover,lats
 upper arms,ez barbell,http://d205bpvrqc9yn1.cloudfront.net/1748.gif,1748,ez bar lying close grip triceps extension behind head,triceps
 back,ez barbell,http://d205bpvrqc9yn1.cloudfront.net/1344.gif,1344,ez bar reverse grip bent over row,upper back
@@ -1028,7 +1028,7 @@ upper legs,body weight,http://d205bpvrqc9yn1.cloudfront.net/0628.gif,0628,monste
 cardio,body weight,http://d205bpvrqc9yn1.cloudfront.net/0630.gif,0630,mountain climber,cardiovascular system
 back,body weight,http://d205bpvrqc9yn1.cloudfront.net/0631.gif,0631,muscle up,lats
 back,body weight,http://d205bpvrqc9yn1.cloudfront.net/1401.gif,1401,muscle-up (on vertical bar),lats
-upper arms,stability ball,http://d205bpvrqc9yn1.cloudfront.net/2328.gif,2328,narrow push-up on exercise ball,triceps
+upper arms,stability ball,http://d205bpvrqc9yn1.cloudfront.net/2328.gif,2328,narrow push-up on listExercise ball,triceps
 neck,body weight,http://d205bpvrqc9yn1.cloudfront.net/1403.gif,1403,neck side stretch,levator scapulae
 waist,body weight,http://d205bpvrqc9yn1.cloudfront.net/0634.gif,0634,negative crunch,abs
 waist,body weight,http://d205bpvrqc9yn1.cloudfront.net/1495.gif,1495,oblique crunch v. 2,abs
