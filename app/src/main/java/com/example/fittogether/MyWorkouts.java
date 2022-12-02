@@ -110,7 +110,6 @@ public class MyWorkouts extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-
                         })
                         .addOnFailureListener(task -> Toast.makeText(this, "Error getting workouts", Toast.LENGTH_SHORT).show());
 
@@ -139,28 +138,9 @@ public class MyWorkouts extends AppCompatActivity {
 
             // Add exercise to list based on type
             ExerciseType type = Workout.getExerciseType(curr_exercise.getString("type"));
-            Exercise exercise = null;
-            switch(type){
-                case REP_ONLY:
+            Exercise exercise = new Exercise();
 
-                    break;
-                case REP_TIME:
-
-                    break;
-                case TIME_ONLY:
-
-                    break;
-                case REP_WEIGHT:
-
-                    break;
-                case ONE_REP_MAX:
-
-                    break;
-                default:
-                    throw new IllegalExerciseTypeException("Invalid exercise type (" + type + ") was used");
-            }
-            if(exercise != null)
-                exercises.add(exercise);
+            exercises.add(exercise);
 
         }
 

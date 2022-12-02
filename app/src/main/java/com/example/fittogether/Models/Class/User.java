@@ -87,4 +87,5 @@ public class User {
     public Map<String, Object> getWorkouts(){return (HashMap<String, Object>) map.get("Workouts");}
     //endregion
 
+    //TODO: Setup user class to work with GSON
 }

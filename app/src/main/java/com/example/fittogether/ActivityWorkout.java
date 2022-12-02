@@ -102,46 +102,56 @@ public class ActivityWorkout extends AppCompatActivity {
                             JsonObject user = gson.fromJson(json_string, JsonObject.class);
 
                             Log.i(TAG + ":getUser", "json_object -> " + user);
+                            Log.i(TAG + ":workouts:title", title);
 
-                            Log.i(TAG + ":getUser:title", "title -> " + title);
-                            JsonObject current_workout = user
-                                    .get("workouts").getAsJsonObject()
-                                    .get("personal").getAsJsonObject()
-                                    .get(title).getAsJsonObject();
+                            JsonObject workouts_all = user.get("workouts").getAsJsonObject();
+                            Log.i(TAG + ":workouts:all", workouts_all.toString());
+                            JsonObject workout_personal = workouts_all.get("personal").getAsJsonObject();
+                            Log.i(TAG + ":workouts:personal", workout_personal.toString());
 
-                            // If workout is successfully retrieved
-                            if (current_workout != null) {
-                                // Retrieve the exercises
-                                JsonArray current_exercises = current_workout.get("exercises").getAsJsonArray();
+                            if(workout_personal.has(title)) {
+                                JsonObject current_workout = workout_personal.get(title).getAsJsonObject();
 
-                                String weight_unit = user.get("stored_unit").getAsString();
+                                // If workout is successfully retrieved
+                                if (current_workout != null) {
+                                    Log.i(TAG + ":workouts:current", current_workout.toString());
+                                    // Retrieve the exercises
+                                    JsonArray current_exercises = current_workout.get("exercises").getAsJsonArray();
 
-                                // Iterate over all the exercises
-                                for (int j = 0; j < current_exercises.size(); j++) {
-                                    // Get current exercise
-                                    JsonObject current_exercise = current_exercises.get(j).getAsJsonObject();
+                                    String weight_unit = user.get("stored_unit").getAsString();
 
-                                    String current_type = current_exercise.get("type").getAsString();
+                                    // Iterate over all the exercises
+                                    for (int j = 0; j < current_exercises.size(); j++) {
+                                        // Get current exercise
+                                        JsonObject current_exercise = current_exercises.get(j).getAsJsonObject();
 
-                                    Log.i(TAG + ":getUser:current_exercise", "curr_ex -> " + current_exercise);
-                                    Log.i(TAG + ":getUser:current_exercise:Type", "Type -> " + current_type);
+                                        String current_type = current_exercise.get("type").getAsString();
 
-                                    // Create new exercise object
-                                    String current_name = current_exercise.get("name").getAsString();
-                                    Exercise new_ex = new Exercise(current_name);
+                                        Log.i(TAG + ":getUser:current_exercise", "curr_ex -> " + current_exercise);
+                                        Log.i(TAG + ":getUser:current_exercise:Type", "Type -> " + current_type);
 
-                                    new_ex.setSetList(current_exercise.get("sets").getAsJsonArray());
-                                    try {
-                                        new_ex.setType(current_type);
-                                    } catch(IllegalArgumentException e) {
-                                        e.printStackTrace();
+                                        // Create new exercise object
+                                        String current_name = current_exercise.get("name").getAsString();
+                                        Exercise new_ex = new Exercise(current_name);
+
+                                        new_ex.setSetList(current_exercise.get("sets").getAsJsonArray());
+                                        try {
+                                            new_ex.setType(current_type);
+                                        } catch (IllegalArgumentException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        exerciseList.add(new_ex);
+                                        exerciseAdapter.notifyDataSetChanged();
                                     }
-
-                                    exerciseList.add(new_ex);
-                                    exerciseAdapter.notifyDataSetChanged();
+                                } else {
+                                    Toast.makeText(this, "There was an error retrieving the workout (" + title + ")", Toast.LENGTH_SHORT).show();
                                 }
-                            } else {
-                                Toast.makeText(this, "There was an error retrieving the workout (" + title + ")", Toast.LENGTH_SHORT).show();
+                            } else{
+                                Toast.makeText(this, title + " - is an invalid key", Toast.LENGTH_SHORT).show();
+                                Log.i(TAG + ":title", title + " - is an invalid key");
+                                Log.i(TAG + ":personal_workouts", workout_personal.toString());
+                                Log.i(TAG + ":keys", workout_personal.keySet().toString());
                             }
 
                         } catch (Exception e) {
