@@ -13,6 +13,7 @@ public class Exercise {
     private String name;
     private ExerciseType type;
     private ArrayList<ExerciseSet> setList;
+    String target;
 
     //region Constructors
 
@@ -42,7 +43,6 @@ public class Exercise {
     // endregion
 
     // region Getters
-
     public String getName() {
         return name;
     }
@@ -53,6 +53,10 @@ public class Exercise {
 
     public ArrayList<ExerciseSet> getSetList() {
         return setList;
+    }
+
+    public String getTarget() {
+        return target;
     }
     // endregion
 
@@ -100,6 +104,10 @@ public class Exercise {
 
             setList.add(new_set);
         }
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
     }
 
     //endregion

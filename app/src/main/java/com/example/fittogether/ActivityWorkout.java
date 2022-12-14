@@ -33,6 +33,7 @@ public class ActivityWorkout extends AppCompatActivity {
     FirebaseFirestore store;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
+    String workoutName;
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
@@ -45,6 +46,9 @@ public class ActivityWorkout extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
+        Intent prev_intent = getIntent();
+        workoutName = prev_intent.getExtras().getString("name");
+
         binding.btnCancel.setOnClickListener(v -> {
             Intent intent = new Intent(this, MyWorkouts.class);
             startActivity(intent);
@@ -56,7 +60,11 @@ public class ActivityWorkout extends AppCompatActivity {
         });
 
         binding.btnAddExercise.setOnClickListener(v -> {
-            // TODO:
+           Intent intent = new Intent(this, ActivityAddExercise.class);
+           Bundle bundle = new Bundle();
+           bundle.putString("name", workoutName);
+           intent.putExtras(bundle);
+           startActivity(intent);
         });
 
         Bundle extras = getIntent().getExtras();

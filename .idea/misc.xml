@@ -6,7 +6,9 @@
         <entry key="..\:/Docs/School/College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/activity_home_screen.xml" value="0.4" />
         <entry key="..\:/Docs/School/College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/activity_login.xml" value="0.4" />
         <entry key="..\:/Docs/School/College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/activity_signup.xml" value="0.4" />
+        <entry key="..\:/Docs/School/Red River College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/activity_add_exercise.xml" value="0.3859375" />
         <entry key="..\:/Docs/School/Red River College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/activity_admin.xml" value="0.4" />
+        <entry key="..\:/Docs/School/Red River College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/activity_create_workout.xml" value="0.4" />
         <entry key="..\:/Docs/School/Red River College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/activity_home_screen.xml" value="0.4" />
         <entry key="..\:/Docs/School/Red River College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/activity_login.xml" value="0.6" />
         <entry key="..\:/Docs/School/Red River College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/activity_my_workouts.xml" value="0.4" />
@@ -26,6 +28,7 @@
         <entry key="..\:/Docs/School/Red River College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/recyclerViewRows/layout/workout.xml" value="0.4" />
         <entry key="..\:/Docs/School/Red River College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/rv_row_exercise_rep_set.xml" value="0.39895833333333336" />
         <entry key="..\:/Docs/School/Red River College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/rv_row_workout.xml" value="0.39947916666666666" />
+        <entry key="..\:/Docs/School/Red River College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/view_add_exercise.xml" value="0.39895833333333336" />
         <entry key="..\:/Docs/School/Red River College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/view_exercise_1_rep_only.xml" value="0.4" />
         <entry key="..\:/Docs/School/Red River College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/view_exercise_2_rep_weight.xml" value="0.4" />
         <entry key="..\:/Docs/School/Red River College/Term 5 2022/Mobile App Dev/FitTogether/app/src/main/res/layout/view_exercise_3_rep_time.xml" value="0.4" />
